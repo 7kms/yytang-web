@@ -25,7 +25,17 @@ module.exports = {
     module: {
         loaders: [
             { test: /.js$/, include: [path.resolve(__dirname, 'src')], loader: 'babel' },
-            { test: /.vue$/, loader: 'vue' }
+            { test: /.vue$/, loader: 'vue' },
+            {
+                test: /\.css/,
+                exclude: /^node_modules$/,
+                loader: `style-loader!css-loader!autoprefixer-loader?{ browsers: ['last 100 versions'] }!`
+            },
+            {
+                test: /\.less/,
+                exclude: /^node_modules$/,
+                loader: `style-loader!css-loader!autoprefixer-loader?{ browsers: ['last 100 versions'] }!less-loader`
+            }
         ]
     },
     resolve: {
