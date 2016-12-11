@@ -1,0 +1,39 @@
+{
+  "name": "yytang-web",
+  "version": "0.1.0",
+  "description": "* web\r ***\r ```javascript\r     console.log(111);\r ```",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.9",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-flow-vue": "^1.0.0",
+    "babel-preset-latest": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.12.0",
+    "eslint-config-vue": "^2.0.1",
+    "eslint-plugin-flow-vars": "^0.5.0",
+    "eslint-plugin-html": "^1.7.0",
+    "eslint-plugin-vue": "^1.0.0",
+    "vue": "^2.1.4",
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.4",
+    "vuex": "^2.0.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.2"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-urlrewrite": "^1.2.0",
+    "vue-router": "^2.1.1"
+  }
+}
