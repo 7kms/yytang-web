@@ -10,7 +10,6 @@ const router = new VueRouter({
   base: __dirname,
   routes
 })
-
 new Vue({
   router
 }).$mount('#app')
