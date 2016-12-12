@@ -28,6 +28,7 @@
     "nodemon": "^1.11.0",
     "vue": "^2.1.4",
     "vue-loader": "^10.0.2",
+    "vue-resource": "^1.0.3",
     "vue-template-compiler": "^2.1.4",
     "vuex": "^2.0.0",
     "webpack": "^1.14.0",
