@@ -1,3 +1,5 @@
+const fs = require('fs')
+const path = require('path')
 const express = require('express')
 const rewrite = require('express-urlrewrite')
 const webpack = require('webpack')
@@ -15,9 +17,15 @@ app.use(webpackDevMiddleware(compiler, {
         chunks: false
     }
 }))
+
 app.use(webpackHotMiddleware(compiler))
-app.use(rewrite('/*', '/index.html'))
-app.use(express.static(__dirname))
+
+app.get('/*',(req,res)=>{
+    res.sendFile(path.resolve('./index.html'))
+})
+
+// app.use(rewrite('/*', './index.html'))
+// app.use(express.static(__dirname))
 const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
