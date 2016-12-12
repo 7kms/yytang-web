@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import * as config from '../config'
 Vue.use(VueResource)
-const userInfo = {
-    account: 'test.163.com',
-    password: '123456'
-}
 export default {
     get: () => {
         new Promise()
