@@ -2,26 +2,26 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import * as config from '../config'
 Vue.use(VueResource)
-var generateOption = (type, dataObj) => {
-    var obj = {
-        credientials: true,
-        headers: { 
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        timeout: 15000
-    }
-    if (type == 'get') {
-        obj.params = dataObj
-    } else {
-        obj.body = dataObj
-    }
-    return obj
+var configHttpOptions = () => {
+    Vue.http.options.credientials = true;
+    Vue.http.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+    Vue.http.options.timeout = 15000;
 }
+var baseConfig = {
+    credientials: true,
+    timeout: 15000,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}
+configHttpOptions();
 export default {
     get: (url, dataObj) => {
         return new Promise((resolve, reject) => {
-            var absoulteUrl = config.serverUrl + url;
-            Vue.http.get(absoulteUrl, generateOption('get', dataObj)).then(res => {
+            var absoluteUrl = config.serverUrl + url;
+            var options = Object.assign({}, baseConfig)
+            options.params = dataObj;
+            Vue.http.get(absoluteUrl, options).then(res => {
                 console.log(res)
                 resolve(res)
             }, res => {
@@ -31,8 +31,9 @@ export default {
     },
     post: (url, dataObj) => {
         return new Promise((resolve, reject) => {
-            var absoulteUrl = config.serverUrl + url;
-            Vue.http.get(absoulteUrl, generateOption('get', dataObj)).then(res => {
+            var absoluteUrl = config.serverUrl + url;
+            var options = Object.assign({}, baseConfig)
+            Vue.http.post(absoluteUrl, dataObj, options).then(res => {
                 console.log(res)
                 resolve(res)
             }, res => {

@@ -25,7 +25,16 @@ module.exports = {
     module: {
         loaders: [
             { test: /.js$/, include: [path.resolve(__dirname, 'src')], loader: 'babel' },
-            { test: /.vue$/, loader: 'vue' },
+            { 
+                test: /.vue$/, 
+                loader: 'vue',
+                options: {
+                    cssModules: {
+                        localIdentName: '[name]-[local]-[hash:base64:5]',
+                        camelCase: true
+                    }
+                }
+            },
             {
                 test: /\.css/,
                 exclude: /^node_modules$/,
@@ -55,4 +64,23 @@ module.exports = {
          new webpack.HotModuleReplacementPlugin(),
          new webpack.NoErrorsPlugin()
     ]
+}
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.devtool = '#source-map'
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
+        })
+    ])
 }
