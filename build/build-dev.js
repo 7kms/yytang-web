@@ -5,7 +5,7 @@ const express = require('express')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const WebpackConfig = require('./webpack.config')
+const WebpackConfig = require('../webpack.config')
 // const webpackDevServer = require('webpack-dev-server')
 const app = express()
 const compiler = webpack(WebpackConfig)  
@@ -18,9 +18,8 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 
 app.use(webpackHotMiddleware(compiler))
-
 app.get('/*', (req, res) => {
-    res.sendFile(path.resolve('./index.html'))
+    res.sendFile(path.resolve('index.html'))
 })
 
 // app.use(rewrite('/*', './index.html'))

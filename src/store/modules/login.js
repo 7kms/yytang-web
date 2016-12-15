@@ -1,22 +1,22 @@
 import * as types from '../mutation-types'
 import $api from '../../api'
 const state = {
-    accountInfo: '',
+    accountInfo: {},
     loading: false
 }
 const getters = {
-    isLoading: state => state.loading
+    isLoading: state => state.loading,
+    accountInfo: state => state.accountInfo
 }
 const actions = {
-    login ({ commit, state }, accountInfo) {
+    login ({ commit, state, dispatch }, accountInfo) {
         commit(types.LOGIN, { isLoading: true });
         $api.post('/login', accountInfo)
         .then(res => {
-            console.log(res)
-            commit(types.LOGIN_SUCCESS, res.data)
+            commit(types.LOGIN_SUCCESS, res.body)
+            dispatch('toast', { data: res.body.user.name })
         }, res => {
-            console.log(res)
-            commit(types.LOGIN_FAILE, res.data)
+            commit(types.LOGIN_FAILE, res.json())
         })
     }
 }
@@ -24,8 +24,8 @@ const mutations = {
     [types.LOGIN] (state, { isLoading }) {
         state.loading = isLoading
     },
-    [types.LOGIN_SUCCESS] (state, accountInfo) {
-        state.accountInfo = accountInfo;
+    [types.LOGIN_SUCCESS] (state, { user }) {
+        state.accountInfo = user;
         state.loading = false;
     },
     [types.LOGIN_FAILE] (state, accountInfo) {

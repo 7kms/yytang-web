@@ -1,5 +1,5 @@
 require('normalize.css')
-import 'babel-polyfill'
+import 'babel-polyfill';
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes.config'

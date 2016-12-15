@@ -22,7 +22,6 @@ export default {
             var options = Object.assign({}, baseConfig)
             options.params = dataObj;
             Vue.http.get(absoluteUrl, options).then(res => {
-                console.log(res)
                 resolve(res)
             }, res => {
                 reject(res)

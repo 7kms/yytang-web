@@ -6,7 +6,8 @@ const nodeModulePath = path.join(__dirname, 'node_modules')
 
 module.exports = {
     // 调试时sourceMap的创建规则eval,eval-source-map,inline-source-map...
-    devtool: '#inline-source-map', // 只对js文件提供sourceMap eval
+    // devtool: '#inline-source-map', // 只对js文件提供sourceMap eval
+    //  devtool: '#source-map',
 
     //此配置将传递给webpack-dev-server
     devServer: {
@@ -19,7 +20,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '__build__'), //必须是一个绝对路径,打包后的文件在硬盘上的路径
         filename: '[name].js', //一个入口文件将对应一个出口文件
-        chunkFilename: '[id].chunk.js', //异步加载的时候,创建的chunk文件
+        chunkFilename: '[chunkhash].chunk.js', //异步加载的时候,创建的chunk文件
         publicPath: '/__build__/'//供Webpack Dev Server使用,提供给浏览器中的静态资源(<script> or <link>)引用,可以用于配置到其他服务器或者cdn
     },
     module: {
@@ -71,7 +72,12 @@ module.exports = {
          }),
          new webpack.optimize.OccurenceOrderPlugin(),
          new webpack.HotModuleReplacementPlugin(),
-         new webpack.NoErrorsPlugin()
+         new webpack.NoErrorsPlugin(),
+         new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
     ]
 }
 if (process.env.NODE_ENV === 'production') {
@@ -86,6 +92,9 @@ if (process.env.NODE_ENV === 'production') {
             compress: {
                 warnings: false
             }
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
         })
     ])
 }

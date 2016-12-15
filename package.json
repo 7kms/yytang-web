@@ -4,8 +4,8 @@
   "description": "* web\r ***\r ```javascript\r     console.log(111);\r ```",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./server.js",
-    "product": "set NODE_ENV='production' && nodemon ./server.js",
+    "dev": "nodemon build/build-dev.js",
+    "release": "nodemon build/build-release.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +15,7 @@
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.9",
+    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.20.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-es2015-rollup": "^3.0.0",
