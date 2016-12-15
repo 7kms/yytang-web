@@ -9,3 +9,6 @@
     </div>
   
 </template>
+<script>
+    require('../less/base.less')
+</script>

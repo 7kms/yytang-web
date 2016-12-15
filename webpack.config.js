@@ -44,6 +44,14 @@ module.exports = {
                 test: /\.less/,
                 exclude: /^node_modules$/,
                 loader: `style-loader!css-loader!autoprefixer-loader?{ browsers: ['last 100 versions'] }!less-loader`
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 8192,
+                    name: '[name].[ext]?[hash]'
+                }
             }
         ]
     },
