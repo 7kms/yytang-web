@@ -14,7 +14,7 @@ module.exports = {
         hot: true
     },
     entry: {
-        app: ['webpack-hot-middleware/client', './src/app.js']
+        app: ['webpack-hot-middleware/client', './src/app']
     },
     output: {
         path: path.resolve(__dirname, '__build__'), //必须是一个绝对路径,打包后的文件在硬盘上的路径
@@ -62,6 +62,7 @@ module.exports = {
             'vuex': path.join(nodeModulePath, 'vuex'),
             'vue-router': path.join(nodeModulePath, 'vue-router/dist/vue-router.js')
         }
+        // extensions: ['.js', '.json', '.vue', '.less', '.html']
     },
     plugins: [
          new webpack.optimize.CommonsChunkPlugin('public.js'),
@@ -73,7 +74,7 @@ module.exports = {
          new webpack.NoErrorsPlugin()
     ]
 }
-
+console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = '#source-map'
     module.exports.plugins = (module.exports.plugins || []).concat([

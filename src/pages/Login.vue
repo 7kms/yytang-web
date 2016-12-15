@@ -1,5 +1,8 @@
+<style lang="less" module>
+   
+</style>
 <template>  
-    <div class="">
+    <div>
         <div>
             <input type="tel" name="mobil" v-model="user.account">
         </div>
@@ -31,6 +34,3 @@
         methods: mapActions(['login'])
     }
 </script>
-<style lang="less" module>
-    
-</style>
