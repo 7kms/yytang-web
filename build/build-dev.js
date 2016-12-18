@@ -1,30 +1,45 @@
 // const fs = require('fs')
 const path = require('path')
 const express = require('express')
-// const rewrite = require('express-urlrewrite')
 const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const WebpackConfig = require('../webpack.config')
-// const webpackDevServer = require('webpack-dev-server')
+const WebpackConfig = require('./webpack.dev.config')
 const app = express()
 const compiler = webpack(WebpackConfig)  
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: WebpackConfig.output.publicPath, //必须配置
-    stats: {
-        colors: true,
-        chunks: false
-    }
-}))
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+var config = require('./config').dev
 
-app.use(webpackHotMiddleware(compiler))
-app.get('/*', (req, res) => {
-    res.sendFile(path.resolve('index.html'))
-})
+var devMiddleware = webpackDevMiddleware(compiler, {
+        publicPath: WebpackConfig.output.publicPath, //必须配置
+        stats: {
+            colors: true,
+            chunks: false
+        }
+    })
+var hotMiddleware = webpackHotMiddleware(compiler)
+
+// handle fallback for HTML5 history API
+app.use(require('connect-history-api-fallback')())
+
+// serve webpack bundle output
+app.use(devMiddleware)
+
+// enable hot-reload and state-preserving
+// compilation error display
+app.use(hotMiddleware)
+
+// serve pure static assets
+var staticPath = path.posix.join(config.assetsPublicPath, config.assetsSubDir)
+app.use(staticPath, express.static('./static'))
+
+// app.use(express.static(path.join(__dirname,'..')))
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname,'../index.html'))
+// })
 
 // app.use(rewrite('/*', './index.html'))
 // app.use(express.static(__dirname))
-const port = process.env.PORT || 8080
+const port = config.port
 module.exports = app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
 })

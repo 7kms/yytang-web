@@ -9,7 +9,9 @@
     </div>
 </template>
 <script>
-   
+   export default {
+       replace:false
+   }
 </script>
 <style lang="less" module>
     

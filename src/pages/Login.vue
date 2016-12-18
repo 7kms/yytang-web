@@ -10,13 +10,13 @@
             <input type="password" name="mobil" v-model="user.password">
         </div>
         <div>
-            <button type="button" @click="login(user)">{{ isLoading ?  'loading' : '登录'}}</button>
+            <button type="button" @click="login">{{ isLoading ?  'loading' : '登录'}}</button>
         </div>
     </div>
     
 </template>
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
     export default {
         data() {
             return {
@@ -31,6 +31,15 @@
                 isLoading:'isLoading'
             })
         },
-        methods: mapActions(['login'])
+        methods: {
+            login(){
+                this.$store.dispatch('login',this.user)
+                .then(res=>{
+                    this.$router.replace(this.$route.query.redirect || '/')
+                },res=>{
+                    this.$store.dispatch('toast','登录失败')
+                })
+            }
+        }
     }
 </script>

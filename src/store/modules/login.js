@@ -11,12 +11,16 @@ const getters = {
 const actions = {
     login ({ commit, state, dispatch }, accountInfo) {
         commit(types.LOGIN, { isLoading: true });
-        $api.post('/login', accountInfo)
-        .then(res => {
-            commit(types.LOGIN_SUCCESS, res.body)
-            dispatch('toast', { data: res.body.user.name })
-        }, res => {
-            commit(types.LOGIN_FAILE, res.json())
+        return new Promise((resolve, reject) => {
+             $api.post('/login', accountInfo)
+            .then(res => {
+                commit(types.LOGIN_SUCCESS, res.body)
+                // dispatch('toast', { data: res.body.user.name })
+                resolve(res);
+            }, res => {
+                commit(types.LOGIN_FAILE, res.json());
+                reject(res);
+            })
         })
     }
 }

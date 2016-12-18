@@ -165,3 +165,7 @@ bower_components
 .bower-cache
 .bower-registry
 .bower-tmp
+
+
+### assets ###
+/__dist__

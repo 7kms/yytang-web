@@ -4,7 +4,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes.config'
 import store from './store'
-import globalStyle from './less/common.less'
+import globalStyle from './assets/less/common.less'
+import App from './app.vue'
 Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
@@ -12,6 +13,8 @@ const router = new VueRouter({
   routes
 })
 new Vue({
+  el: '#app',
   store,
-  router
-}).$mount('#app')
+  router,
+  render: h => h(App)
+})
