@@ -2,5 +2,6 @@
 * web
 ***
 ```javascript
-    console.log(111);
+    npm install 
+    npm run dev
 ```
