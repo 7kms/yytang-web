@@ -41,10 +41,10 @@ module.exports = merge(baseWebpackConfig, {
          new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
          new webpack.NoErrorsPlugin(),
          // https://github.com/ampedandwired/html-webpack-plugin
-         new HtmlWebpackPlugin({
+         new HtmlWebpackPlugin(Object.assign({
             filename: 'index.html',//生成的html存放路径，相对于 path
             template: path.resolve(__dirname,'../src/template/index.html'),//html模板路径
             inject: true
-         })
+         },config.htmlOptions))
     ]
 })

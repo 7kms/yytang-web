@@ -7,13 +7,20 @@ module.exports = {
         port: 8080,
         assetsRoot: path.resolve(__dirname,'../__dist__'),
         assetsPublicPath: '/',
-        assetsSubDir: 'static'
+        assetsSubDir: 'static',
+        htmlOptions: {
+            filename: 'index.html',
+            title: 'magiccube demo'
+        }
     },
     release:{
         env:{
             NODE_ENV:'"production"'
         },
-        index: path.resolve(__dirname,'../__dist__/index.html'),
+        htmlOptions: {
+            filename: 'index.html',
+            title: 'magiccube demo'
+        },
         sourceMap: false,
         assetsRoot: path.resolve(__dirname,'../__dist__'),
         assetsPublicPath: '/',

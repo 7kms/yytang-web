@@ -21,8 +21,10 @@ module.exports = {
         // ],
         loaders: [
             { test: /.js$/, exclude: /node_modules/, loader: 'babel' },
+            { test: /.html$/, exclude: /node_modules/, loader: 'html' },
             { 
                 test: /.vue$/, 
+                exclude: /node_modules/,
                 loader: 'vue'
             },
             {

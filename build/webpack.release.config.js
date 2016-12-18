@@ -37,20 +37,19 @@ module.exports = merge(baseWebpackConfig, {
         // generate dist index.html with correct asset hash for caching.
         // you can customize output by editing /index.html
         // see https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: config.index,
+        new HtmlWebpackPlugin(Object.assign({
             template: path.resolve(__dirname,'../src/template/index.html'),//html模板路径
             inject: true,
             minify: {
                 removeComments: false,
                 collapseWhitespace: false,
-                // removeAttributeQuotes: true
+                removeAttributeQuotes: false
                 // more options:
                 // https://github.com/kangax/html-minifier#options-quick-reference
             },
             // necessary to consistently work with multiple chunks via CommonsChunkPlugin
             chunksSortMode: 'dependency'
-        }),
+        },config.htmlOptions)),
         // split vendor js into its own file
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
