@@ -6,7 +6,7 @@ module.exports = {
         },
         port: 8080,
         assetsRoot: path.resolve(__dirname,'../__dist__'),
-        assetsPublicPath: '/__dist__',
+        assetsPublicPath: '/',
         assetsSubDir: 'static',
         htmlOptions: {
             filename: 'index.html',

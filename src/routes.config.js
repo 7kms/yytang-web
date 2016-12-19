@@ -6,5 +6,9 @@ export default [
     {
         path: '/login',
         component: resolve => require(['./pages/Login.vue'], resolve)
+     },
+     {
+        path: '*',
+        component: resolve => require(['./pages/404.vue'], resolve)
      }
 ]
