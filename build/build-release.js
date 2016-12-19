@@ -9,7 +9,7 @@ env.NODE_ENV = 'production'
 
 
 var assetsPath = path.join(config.assetsRoot, config.assetsSubDir)
-rm('-rf', assetsPath)
+rm('-rf', config.assetsRoot)
 mkdir('-p', assetsPath)
 
 webpack(webpackConfig, function (err, stats) {

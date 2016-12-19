@@ -21,19 +21,39 @@ module.exports = {
         // ],
         loaders: [
             { test: /.js$/, exclude: /node_modules/, loader: 'babel' },
-            { test: /.html$/, exclude: /node_modules/, loader: 'html' },
+            // { 
+            //     test: /.html$/, 
+            //     exclude: /node_modules/,
+            //     loader: 'html',
+            //     query:{
+            //         interpolate: 'require',
+            //         minimize: false
+            //     }
+            // },
             { 
                 test: /.vue$/, 
                 exclude: /node_modules/,
                 loader: 'vue'
             },
             {
-                test: /\.(png|jpg|gif|svg)$/,
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                exclude: '/nolimit/',                
                 loader: 'url-loader',
-                options: {
-                    limit: 8192,
-                    name: '[name].[hash:7].[ext]'
+                query: {
+                    limit: 10,
+                    name: utils.assetsPath('img/[name].[hash:6].[ext]')
                 }
+            },
+            {
+                test: /.(eot|ttf|woff|woff2)$/,
+                loader: 'file',
+                query: {
+                    name: utils.assetsPath('font/[name].[hash:6].[ext]')
+                }
+            },
+             {
+                test: /.(ico)$/,
+                loader: 'file?name=[name].[hash:6].[ext]'
             }
         ]
     },

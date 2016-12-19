@@ -9,17 +9,19 @@
 	<!--是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。-->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<link rel="apple-touch-icon" sizes="114*114" href="../assets/images/logo.png">
-    <meta name="format-detection"content="telephone=no, email=no" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+	<link rel="apple-touch-icon" sizes="114*114" href="<%= require('../assets/images/logo.png') %>">	
 	<!--防止百度转码-->
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
-	<link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico" sizes="48x48">
+	<link rel="icon" type="image/x-icon" href="<%= require('../assets/images/favicon.ico') %>" sizes="48x48">
+	
 </head>
 
 <body>
 	<!-- built files will be auto injected -->
 	<div id="app"></div>
-	<!--<img src="../assets/images/logo.png" alt="">-->
 </body>
+	
+	
 
 </html>
