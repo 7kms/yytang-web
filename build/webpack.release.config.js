@@ -14,6 +14,7 @@ module.exports = merge(baseWebpackConfig, {
         path: config.assetsRoot, //必须是一个绝对路径,打包后的文件在硬盘上的路径
         filename: utils.assetsPath('js/[name].[chunkhash].js'), //一个入口文件将对应一个出口文件
         chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'), //异步加载的时候,创建的chunk文件
+        publicPath: config.assetsPublicPath
     },
     module: {
         loaders: utils.styleLoaders({ sourceMap: config.sourceMap, extract: true })
@@ -41,7 +42,7 @@ module.exports = merge(baseWebpackConfig, {
             template: path.resolve(__dirname,'../src/template/index.html'),//html模板路径
             inject: true,
             minify: {
-                removeComments: false,
+                removeComments: true,
                 collapseWhitespace: false,
                 removeAttributeQuotes: false
                 // more options:

@@ -53,7 +53,10 @@ module.exports = {
             },
              {
                 test: /.(ico)$/,
-                loader: 'file?name=[name].[hash:6].[ext]'
+                loader: 'file',
+                query: {
+                    name: utils.assetsPath('img/[name].[hash:6].[ext]')
+                }
             }
         ]
     },

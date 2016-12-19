@@ -6,7 +6,7 @@ module.exports = {
         },
         port: 8080,
         assetsRoot: path.resolve(__dirname,'../__dist__'),
-        assetsPublicPath: '/',
+        assetsPublicPath: '/__dist__',
         assetsSubDir: 'static',
         htmlOptions: {
             filename: 'index.html',
@@ -19,11 +19,11 @@ module.exports = {
         },
         htmlOptions: {
             filename: 'index.html',
-            title: 'magiccube demo'
+            title: 'magiccube'
         },
-        sourceMap: false,
+        sourceMap: true,
         assetsRoot: path.resolve(__dirname,'../__dist__'),
-        assetsPublicPath: '/',
+        assetsPublicPath: './',
         assetsSubDir: 'static'
     },
     test:{

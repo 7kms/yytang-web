@@ -30,7 +30,7 @@ module.exports = merge(baseWebpackConfig, {
         loaders: utils.styleLoaders({ sourceMap: config.sourceMap})
     },
     plugins: [
-         new webpack.optimize.CommonsChunkPlugin('public.js'),
+         new webpack.optimize.CommonsChunkPlugin('vendor'),
          new webpack.DefinePlugin({
             'process.env': config.env
          }),
