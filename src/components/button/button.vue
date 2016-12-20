@@ -6,7 +6,7 @@
     </button>
 </template>
 <script>
-    const prefixCls = 'yyt-btn';
+    const prefixCls = 'y-btn';
     export default {
         props:{
             disabled: {
