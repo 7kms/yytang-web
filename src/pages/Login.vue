@@ -26,10 +26,10 @@
 <template>  
     <form :class="$style.content" @submit.prevent="login">
         <div :class="$style.item">
-            <input :class="$style.input" type="tel" name="mobil" v-model="user.account">
+            <input :class="$style.input" type="tel"  v-model="user.account">
         </div>
         <div :class="$style.item">
-            <input :class="$style.input" type="password" name="mobil" v-model="user.password">
+            <input :class="$style.input" type="password" v-model="user.password">
         </div>
         <div :class="$style.item">
             <y-button type="submit" :block="true" :disabled="false">{{ isLoading ?  '正在登录...' : '登录'}}</y-button>
