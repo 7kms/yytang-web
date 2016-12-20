@@ -1,5 +1,5 @@
 <template>
-    <button :class="classes" @click.stop="clickBtn" :disabled="disabled">
+    <button :class="classes" :type="type" @click.stop="clickBtn" :disabled="disabled">
         <span>
             <slot></slot>
         </span>
@@ -16,6 +16,9 @@
             block: {
                 type: Boolean,
                 default: false
+            },
+            type: {
+                type: String
             }
         },
         data(){

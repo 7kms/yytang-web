@@ -24,7 +24,7 @@
    }
 </style>
 <template>  
-    <div :class="$style.content">
+    <form :class="$style.content" @submit.prevent="login">
         <div :class="$style.item">
             <input :class="$style.input" type="tel" name="mobil" v-model="user.account">
         </div>
@@ -32,9 +32,9 @@
             <input :class="$style.input" type="password" name="mobil" v-model="user.password">
         </div>
         <div :class="$style.item">
-            <y-button @click="login" :block="true" :disabled="false">{{ isLoading ?  '正在登录...' : '登录'}}</y-button>
+            <y-button type="submit" :block="true" :disabled="false">{{ isLoading ?  '正在登录...' : '登录'}}</y-button>
         </div>
-    </div>
+    </form>
     
 </template>
 <script>
