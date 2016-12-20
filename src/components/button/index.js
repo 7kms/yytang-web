@@ -1,2 +1,2 @@
-import YYTButton from './button.vue';
-export default YYTButton
+import Button from './button.vue';
+export default Button

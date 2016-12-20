@@ -6,7 +6,9 @@ import store from './store'
 import normalCss from 'normalize.css'
 import globalStyle from './assets/less/basic.less'
 import App from './app.vue'
+import components from './components'
 Vue.use(VueRouter)
+Vue.use(components)
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,

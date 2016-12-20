@@ -13,13 +13,13 @@ const actions = {
         commit(types.LOGIN, { isLoading: true });
         return new Promise((resolve, reject) => {
              $api.post('/login', accountInfo)
-            .then(res => {
-                commit(types.LOGIN_SUCCESS, res.body)
+            .then(data => {
+                commit(types.LOGIN_SUCCESS, data)
                 // dispatch('toast', { data: res.body.user.name })
-                resolve(res);
-            }, res => {
-                commit(types.LOGIN_FAILE, res.json());
-                reject(res);
+                resolve(data);
+            }, data => {
+                commit(types.LOGIN_FAILE, data);
+                reject(data);
             })
         })
     }

@@ -34,9 +34,9 @@ export default {
             var options = Object.assign({}, baseConfig)
             Vue.http.post(absoluteUrl, dataObj, options).then(res => {
                 console.log(res)
-                resolve(res)
+                resolve(res.body)
             }, res => {
-                reject(res)
+                reject(res.body)
             })
         })
     }

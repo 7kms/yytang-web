@@ -32,7 +32,7 @@
             <input :class="$style.input" type="password" name="mobil" v-model="user.password">
         </div>
         <div :class="$style.item">
-            <y-button @click="login" :block="true" :disabled="false">{{ isLoading ?  'loading' : '登录'}}</y-button>
+            <y-button @click="login" :block="true" :disabled="false">{{ isLoading ?  '正在登录...' : '登录'}}</y-button>
         </div>
     </div>
     
@@ -43,8 +43,9 @@
     export default {
         data() {
             return {
+                count:1,
                 user:{
-                    account: 'example@163.com',
+                    account: 'example@16.com',
                     password: '111111'
                 }
             }
@@ -59,11 +60,13 @@
         },
         methods: {
             login(){
+                // this.$Toast.show({text: `${this.count++}登录成功` , duration: 2000});
                 this.$store.dispatch('login',this.user)
                 .then(res=>{
                     this.$router.replace(this.$route.query.redirect || '/')
                 },res=>{
-                    this.$store.dispatch('toast','登录失败')
+                    console.log(res);
+                    this.$Toast.show({text: res.msg , duration: 3000});
                 })
             }
         }
