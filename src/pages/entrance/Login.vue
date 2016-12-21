@@ -1,14 +1,8 @@
 <style lang="less" module>
-    @import '../assets/less/const.less';
+    @import '../../assets/less/const.less';
     @contentW: 350px;
     @item-height: 38px;
     @iconW: 40px;
-   .content {
-       width: 350px;
-       margin: 150px auto;
-       padding: 20px;
-       background-color: #fff;
-   }
    .item {
         position: relative;
         height: @item-height;
