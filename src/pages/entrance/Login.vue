@@ -71,7 +71,7 @@
         },
         computed: {
             ...mapGetters({
-                isLoading:'isLoading'
+                isLoading:'loginLoading'
             })
         },
         methods: {

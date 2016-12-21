@@ -54,7 +54,6 @@
             <p :class="$style.title">交流故事，沟通想法</p>
         </div>
         <div :class="$style.nav">
-            <!-- :class="$style.btn"  -->
             <div class="text-center" :class="$style.navTab">
                 <a :class="{ [$style.btn]:true, [$style.on]:isLogin() }" href="javascript:;" @click="goLogin">登录</a>
                 <y-icon name="dot" color="#999"></y-icon>

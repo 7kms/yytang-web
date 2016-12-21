@@ -1,4 +1,4 @@
-import login from './login'
+import entrance from './entrance';
 export default {
-    login
+    entrance
 }
