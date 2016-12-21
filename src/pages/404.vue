@@ -3,16 +3,17 @@
        margin: 100px auto;
        width: 100%;
        max-width: 600px;
+       .btn{
+            color:#00beff;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
    }
-   .btn{
-       color:#00beff;
-       &:hover{
-           text-decoration: underline;
-       }
-   }
+   
 </style>
 <template>  
-   <div :class="[$style.content,'textCenter']">
+   <div :class="[$style.content,'text-center']">
        <img src="../assets/images/404.png" alt="not found" width="100%">
        <div>
             {{seconds}}秒后跳转到  <router-link to='/' :class="$style.btn">首页</router-link>
@@ -23,7 +24,7 @@
     export default {
         data(){
             return {
-                count: 3
+                count: 3000
             }
         },
         computed:{

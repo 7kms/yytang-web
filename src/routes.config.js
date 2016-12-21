@@ -1,6 +1,10 @@
 export default [
     {
         path: '/',
+        redirect: '/app'
+    },
+    {
+        path: '/app',
         component: resolve => require(['./pages/MainPage.vue'], resolve)
     },
     {
