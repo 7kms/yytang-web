@@ -1,4 +1,4 @@
 import * as types from './mutation-types'
-export const toast = ({ commit }, msg) => {
-    console.log(msg)
+export const changeTheme = ({ commit }, pyload) => {
+    console.log(pyload)
 }

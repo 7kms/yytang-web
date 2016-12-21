@@ -4,7 +4,7 @@ module.exports = {
         env:{
             NODE_ENV:'"development"'
         },
-        port: 9000,
+        port: 3456,
         assetsRoot: path.resolve(__dirname,'../__dist__'),
         assetsPublicPath: '/',
         assetsSubDir: 'static',

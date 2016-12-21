@@ -1,6 +1,10 @@
 import Toast from './toast';
+import Icon from './icon';
+import Button from './button';
 const yview = {
-    Toast
+    Toast,
+    yIcon: Icon,
+    yButton: Button
 };
 const install = function (Vue) {
     Object.keys(yview).forEach((key) => {
