@@ -5,7 +5,7 @@ export default [
     },
     {
         path: '/app',
-        component: resolve => require(['./pages/MainPage.vue'], resolve)
+        component: resolve => require(['./pages/main/index.vue'], resolve)
     },
     {
         path: '/entrance',

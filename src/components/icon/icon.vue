@@ -6,10 +6,7 @@
     export default {
         props: {
             name: String,
-            size: {
-                type:[String,Number],
-                default:14
-            },
+            size: [String,Number],
             color: String
         },
         computed: {
