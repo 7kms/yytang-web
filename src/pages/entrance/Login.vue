@@ -63,7 +63,7 @@
             <span :class="$style.iconWrap">
                 <y-icon name="password" size="10" color="#999"></y-icon>
             </span>
-            <input :class="$style.input" type="password" maxlength="30" v-model="user.pwd" placeholder="密码" @focus="resetHint()">
+            <input :class="$style.input" type="password" maxlength="30" v-model="user.password" placeholder="密码" @focus="resetHint()">
         </div>
          <div :class="$style.itemHint" v-if="!pwdHint">
             <y-hint name="error" size="10">{{pwdErrorText}}</y-hint>
@@ -84,7 +84,7 @@
                 emailAccountText: '账号不符合规范',
                 user:{
                     account: 'example@163.com',
-                    pwd: '111111'
+                    password: '111111'
                 }
             }
         },
@@ -104,7 +104,7 @@
                 return this.accountlHint;
             },
             checkPwd(){
-                if(this.user.pwd.length >= 6 && this.user.pwd.length <= 20){
+                if(this.user.password.length >= 6 && this.user.password.length <= 20){
                     this.pwdHint = true;
                 }else {
                     this.pwdHint = false;
@@ -117,7 +117,7 @@
             },
             login(){
                 if(!this.validate())return false;
-                this.$store.dispatch('login',this.user);
+                this.$store.dispatch('login',this.user)
                 .then(res=>{
                     this.$router.replace(this.$route.query.redirect || '/')
                 },res=>{
