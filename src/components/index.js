@@ -1,8 +1,10 @@
 import Toast from './toast';
 import Icon from './icon';
 import Button from './button';
+import yHint from './hint';
 const yview = {
     Toast,
+    yHint,
     yIcon: Icon,
     yButton: Button
 };

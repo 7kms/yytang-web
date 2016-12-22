@@ -32,7 +32,7 @@
             border-color: @theme-color;
         }
         &.error{
-            border-color: red; 
+            border-color: @hint-color; 
         }
    }
    .btnSubmit{
@@ -40,10 +40,11 @@
        padding-bottom: 10px;
    }
    .itemHint{
-       margin-top: -5px;
+       margin-top: -8px;
+       margin-bottom: 10px;
        height: 20px;
        line-height: 20px;
-       color: red;
+       color:  @hint-color;
    }
 </style>
 <template>  
@@ -52,10 +53,10 @@
             <span :class="$style.iconWrap">
                 <y-icon name="mail" size="10" color="#999"></y-icon>
             </span>
-            <input :class="[$style.input,{[$style.error]:!emailHint}]" type="email" maxlength="30" v-model="user.email" placeholder="邮箱" @blur="checkEmail()" @focus="resetHint()">
+            <input :class="[$style.input,{[$style.error]:!emailHint}]" type="text" maxlength="30" v-model="user.email" placeholder="邮箱" @blur="checkEmail()" @focus="resetHint()">
         </div>
         <div :class="$style.itemHint" v-if="!emailHint">
-            <y-icon name="mail" size="10" color="#999"></y-icon><span>{{emailErrorText}}</span>
+            <y-hint name="error" size="10">{{emailErrorText}}</y-hint>
         </div>
         <div :class="$style.item">
             <span :class="$style.iconWrap">
@@ -70,7 +71,7 @@
             <input :class="[$style.input,{[$style.error]:!pwdHint}]" type="password" maxlength="30" v-model="user.pwd" placeholder="重复密码" @blur="checkPwd()" @focus="resetHint()">
         </div>
         <div :class="$style.itemHint" v-if="!pwdHint">
-            <y-icon name="mail" size="10" color="#999"></y-icon><span>{{pwdErrorText}}</span>
+            <y-hint name="error" size="10">{{pwdErrorText}}</y-hint>
         </div>
         <div>
             <y-button :class="$style.btnSubmit" type="submit" :block="true" :disabled="false">{{ isLoading ?  '正在注册...' : '注册'}}</y-button>
@@ -79,7 +80,7 @@
 </template>
 <script>
     import { mapGetters } from 'vuex';
-    import Util from '../../util'
+    import Util from '../../util';
     export default {
         data() {
             return {

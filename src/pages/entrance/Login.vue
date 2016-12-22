@@ -31,10 +31,20 @@
             background-color: #fff;
             border-color: @theme-color;
         }
+        &.error{
+            border-color: @hint-color; 
+        }
    }
    .btnSubmit{
        padding-top: 10px;
        padding-bottom: 10px;
+   }
+   .itemHint{
+       margin-top: -8px;
+       margin-bottom: 10px;
+       height: 20px;
+       line-height: 20px;
+       color:  @hint-color;
    }
  
 </style>
@@ -44,13 +54,19 @@
             <span :class="$style.iconWrap">
                 <y-icon name="mail" size="10" color="#999"></y-icon>
             </span>
-            <input :class="$style.input" type="tel" maxlength="30" v-model="user.account" placeholder="邮箱">
+            <input :class="$style.input" type="text" maxlength="30" v-model="user.account" placeholder="邮箱" @focus="resetHint()">
+        </div>
+        <div :class="$style.itemHint" v-if="!accountlHint">
+            <y-hint name="error" size="10">{{emailAccountText}}</y-hint>
         </div>
         <div :class="$style.item">
             <span :class="$style.iconWrap">
                 <y-icon name="password" size="10" color="#999"></y-icon>
             </span>
-            <input :class="$style.input" type="password" maxlength="30" v-model="user.password" placeholder="密码">
+            <input :class="$style.input" type="password" maxlength="30" v-model="user.pwd" placeholder="密码" @focus="resetHint()">
+        </div>
+         <div :class="$style.itemHint" v-if="!pwdHint">
+            <y-hint name="error" size="10">{{pwdErrorText}}</y-hint>
         </div>
         <div>
             <y-button :class="$style.btnSubmit" type="submit" :block="true" :disabled="false">{{ isLoading ?  '正在登录...' : '登录'}}</y-button>
@@ -59,13 +75,16 @@
 </template>
 <script>
     import { mapGetters } from 'vuex';
+    import Util from '../../util';
     export default {
         data() {
             return {
-                count:1,
+                pwdHint: true,
+                accountlHint: true,
+                emailAccountText: '账号不符合规范',
                 user:{
-                    account: 'example@16.com',
-                    password: '111111'
+                    account: 'example@163.com',
+                    pwd: '111111'
                 }
             }
         },
@@ -75,15 +94,37 @@
             })
         },
         methods: {
+             resetHint() {
+                this.pwdHint = true;
+                this.accountlHint = true;
+            },
+            checkaAccount(){
+                let str = this.user.account.trim();
+                this.accountlHint = (str.length >= 5 && str.length <= 20);
+                return this.accountlHint;
+            },
+            checkPwd(){
+                if(this.user.pwd.length >= 6 && this.user.pwd.length <= 20){
+                    this.pwdHint = true;
+                }else {
+                    this.pwdHint = false;
+                    this.pwdErrorText = '密码长度在6~20位之间';
+                }
+                return this.pwdHint;
+            },
+            validate(){
+                return (this.checkaAccount() && this.checkPwd());
+            },
             login(){
-                // this.$Toast.show({text: `${this.count++}登录成功` , duration: 2000});
-                this.$store.dispatch('login',this.user)
+                if(!this.validate())return false;
+                this.$store.dispatch('login',this.user);
                 .then(res=>{
                     this.$router.replace(this.$route.query.redirect || '/')
                 },res=>{
                     console.log(res);
-                    this.$Toast.show({text: res.msg , duration: 3000});
-                })
+                    this.pwdHint = false;
+                    this.pwdErrorText = res.msg;
+                });
             }
         }
     }

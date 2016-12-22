@@ -10,7 +10,7 @@ module.exports = {
         assetsSubDir: 'static',
         htmlOptions: {
             filename: 'index.html',
-            title: 'magiccube demo'
+            title: 'Y_众'
         }
     },
     release:{
@@ -19,7 +19,7 @@ module.exports = {
         },
         htmlOptions: {
             filename: 'index.html',
-            title: 'magiccube'
+            title: 'Y_众'
         },
         sourceMap: true,
         assetsRoot: path.resolve(__dirname,'../__dist__'),
