@@ -1,11 +1,10 @@
 <style lang="less" module>
     @import '../../assets/less/const.less';
-    @width: 45px;
     .nav{
         position: fixed;
         left: 0;
         top: 0;
-        width: @width;
+        width: @slideW;
         height: 100%;
         z-index: 1049;
         color: @font-color-9;
@@ -13,36 +12,47 @@
         -webkit-backface-visibility: hidden;
     }
     .label {
-        width: @width;
-        height: @width;
-        line-height: @width;
+        display: block;
+        width: @slideW;
+        height: @slideW;
+        line-height: @slideW;
         font-size: 20px;
         cursor: pointer;
-        &:hover{
+        transition: all .3s;
+        &.on,&:hover{
             color:#fff;
             background-color: @hint-color;
         }
-    }
-    .logo{
-        background: url('../../assets/images/logo-48.png') no-repeat center;
-        background-size: contain;
-        opacity: .8;
-        filter: alpha(opacity=80);
+        &.on{
+            opacity: .8;
+            filter: alpha(opacity=80);
+        }
         &:hover{
             opacity: 1;
             filter: alpha(opacity=100);
-            background-color: transparent;
+        }
+    }
+    .logo{
+        background: url('../../assets/images/logo-white-144.png') no-repeat center;
+        background-size: 24px 24px;
+        opacity: .8;
+        filter: alpha(opacity=80);
+        &.on,&:hover{
+            background-image: url('../../assets/images/logo-48.png');
+            opacity: 1;
+            filter: alpha(opacity=100);
+            background-color: #fff;
         }
     }
 </style>
 <template>
     <div :class="[$style.nav,'text-center']">
-        <div :class="[$style.label,$style.logo]"></div>
+        <router-link :class="[$style.label,$style.logo]" to="/app"></router-link>
         <div :class="[$style.label]">
-            <y-icon name="bulb"></y-icon>
+            <y-icon name="mulu"></y-icon>
         </div>
          <div :class="[$style.label]">
-            <y-icon name="bulb"></y-icon>
+            <y-icon name="mobile"></y-icon>
         </div>
     </div>
 </template>

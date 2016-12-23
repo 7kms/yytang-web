@@ -8,7 +8,7 @@ const nodeModulePath = path.join(__dirname, '../node_modules')
 
 module.exports = {
     entry: {
-        app: ['./src/app']
+        app: ['babel-polyfill','./src/app']
     },
     module: {
         // only lint local *.vue files

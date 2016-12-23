@@ -1,4 +1,7 @@
 @import './const.less';
+html,body,.y-content{
+    height: 100%;
+}
 body{
         background-color: @body-color;
         font-size: @font-14;
@@ -16,6 +19,13 @@ a{
         color: inherit;
     }
 }
+::-moz-selection {
+  color: @highlight; background: @theme-color;
+}
+
+::selection {
+ color: @highlight; background: @theme-color;
+} 
 input{
     outline: none;
     border: none;
@@ -34,4 +44,8 @@ input{
 }
 .pull-right{
     float: right;
+}
+.inlne-block{
+    display: inline-block;
+    vertical-align: middle;
 }

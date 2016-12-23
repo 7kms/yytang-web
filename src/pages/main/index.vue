@@ -1,16 +1,13 @@
-<style lang="less" module>
-    @import '../../assets/less/const.less';
-</style>
 <template>
     <div class="y-content">
-        <y-slide></y-slide>
-        <Recommend></Recommend>
+        <Slide></Slide>
+        <userLabel></userLabel>
+        <router-view></router-view>
     </div>
 </template>
 <script>
-    import ySlide from './slide.vue';
-    import yNav from './nav.vue';
-    import Recommend from './recommend.vue';
+    import Slide from './slide.vue';
+    import userLabel from './userLabel.vue';
     export default {
         data(){
             return {
@@ -18,9 +15,8 @@
             }
         },
         components:{
-            ySlide,
-            yNav,
-            Recommend
+            Slide,
+            userLabel
         },
         methods: {
 
