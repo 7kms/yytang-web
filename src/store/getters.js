@@ -1,3 +1,3 @@
 export const userInfo = state => {
-    return state.login.account;
+    return state.entrance.account;
 }

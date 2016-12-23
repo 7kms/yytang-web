@@ -65,7 +65,8 @@ module.exports = {
         alias: {
             'vue': path.join(nodeModulePath, 'vue/dist/vue.js'),
             'vuex': path.join(nodeModulePath, 'vuex'),
-            'vue-router': path.join(nodeModulePath, 'vue-router/dist/vue-router.js')
+            'vue-router': path.join(nodeModulePath, 'vue-router/dist/vue-router.js'),
+            'api': path.resolve(__dirname, '../src/api')
         }
         // extensions: ['.js', '.json', '.vue', '.less', '.html']
     },

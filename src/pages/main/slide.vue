@@ -47,7 +47,7 @@
 </style>
 <template>
     <div :class="[$style.nav,'text-center']">
-        <router-link :class="[$style.label,$style.logo]" to="/app"></router-link>
+        <router-link :class="[$style.label,$style.logo,{[$style.on]:isMainPage}]" to="/app"></router-link>
         <div :class="[$style.label]">
             <y-icon name="mulu"></y-icon>
         </div>
@@ -61,6 +61,11 @@
         data() {
             return {
 
+            }
+        },
+        computed: {
+            isMainPage(){
+                return this.$router.path = '/app';
             }
         },
         methods: {
