@@ -135,7 +135,7 @@
                 alert(11)
             },
             goWrite(){
-                this.$router.push('/app/write')
+                this.$router.push('/app/notes')
             }
         },
         computed:{

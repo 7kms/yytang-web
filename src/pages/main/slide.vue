@@ -47,7 +47,7 @@
 </style>
 <template>
     <div :class="[$style.nav,'text-center']">
-        <router-link :class="[$style.label,$style.logo,{[$style.on]:isMainPage}]" to="/app"></router-link>
+        <router-link  v-toolTip.right="'主页'" :class="[$style.label,$style.logo,{[$style.on]:isMainPage}]" to="/app"></router-link>
         <div :class="[$style.label]" v-toolTip.right="'目录'">
             <y-icon name="mulu"></y-icon>
         </div>

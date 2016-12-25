@@ -14,7 +14,20 @@ const ROUTER_SETTING = {
             component: resolve => require(['./pages/main/index.vue'], resolve),
             children: [
                 { path: '', component: resolve => require(['./pages/main/Recommend.vue'], resolve) },
-                { path: 'write', component: resolve => require(['./pages/person/Write.vue'], resolve) }
+                { 
+                    path: 'notes',
+                    component: resolve => require(['./pages/notes/index.vue'], resolve),
+                    children: [
+
+                        {
+                            path: 'write',
+                            component: resolve => require(['./pages/notes/write.vue'], resolve)
+                        }
+                    ]
+                },
+                { path: 'user', component: resolve => require(['./pages/user/index.vue'], resolve) },
+                { path: 'setting', component: resolve => require(['./pages/setting/index.vue'], resolve) },
+                { path: 'account', component: resolve => require(['./pages/account/index.vue'], resolve) }
             ]
         },
         {
@@ -30,7 +43,7 @@ const ROUTER_SETTING = {
         },
         {
             path: '*',
-            component: resolve => require(['./pages/404.vue'], resolve)
+            component: resolve => require(['./pages/error/404.vue'], resolve)
         }
     ],
     scrollBehavior (to, from, savedPosition) {

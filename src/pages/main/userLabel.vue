@@ -1,11 +1,40 @@
-<style module>
+<style lang="less" module>
+    @import '../../assets/less/const.less';
     .entrance{
         position: fixed;
         top: 15px;
-        right: 10px;
+        right: 20px;
     }
     .login{
         margin-right: 5px;
+    }
+    .menu{
+        @borderW:5px;
+        position: relative;
+        margin-top: 10px;
+        margin-left: -10px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        &::after{
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -@borderW;
+            border: @borderW solid transparent;
+            border-bottom-color: #ccc;
+        }
+    }
+    .menuItem{
+        height: 28px;
+        line-height: 28px;
+        transition: margin .3s;
+        &:hover{
+            margin-left: -10px;
+        }
+        
     }
 </style>
 <template>
@@ -21,12 +50,24 @@
                 <y-icon name="down"></y-icon>
             </span>
             <transition name="fade">
-                 <div :class="$style.menu" v-show="menu" @mouseover="showMenu" @mouseleave="hideMenu">
+                 <div :class="[$style.menu,'text-center']" v-show="menu" @mouseover="showMenu" @mouseleave="hideMenu">
                     <ul>
-                        <li class="link">个人资料</li>
-                        <li class="link">笔记管理</li>
-                        <li class="link">账号设置</li>
-                        <li class="link">退出登录</li>
+                        <li :class="[$style.menuItem,'link']">
+                            <y-icon name="data"></y-icon>
+                            <router-link to="/app/user">个人资料</router-link>
+                        </li>
+                        <li :class="[$style.menuItem,'link']">
+                            <y-icon name="note"></y-icon>
+                            <router-link to="/app/notes">笔记管理</router-link>
+                        </li>
+                        <li :class="[$style.menuItem,'link']">
+                            <y-icon name="setting"></y-icon>
+                            <router-link to="/app/setting">账号设置</router-link>
+                        </li>
+                        <li :class="[$style.menuItem,'link']">
+                            <y-icon name="loginout"></y-icon>
+                            <a href="javascript:;" @click="loginout">退出登录</a>
+                        </li>
                     </ul>
                 </div>
             </transition>
@@ -44,6 +85,9 @@
             }
         },
         methods: {
+            loginout(){
+
+            },
             hideMenu(){
                 if(this.menuTimmer){
                     clearTimeout(this.menuTimmer);
