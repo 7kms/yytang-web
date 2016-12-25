@@ -2,6 +2,7 @@
     @import '../../assets/less/const.less';
     .recommend {
         height: 100%;
+        background-color: #fff;
     }
     .poster {
         position: relative;
@@ -35,11 +36,58 @@
         }
     }
     .article {
-
+        min-width: 600px;
+        width: 60%;
+    }
+    .header {
+        height: @slideW;
+        background-color : #fff;
+        border-bottom: 1px solid #d9d9d9;
+    }
+    .tabItem{
+        display: inline-block;
+        padding: 0 20px;
+        line-height: @slideW - 1;
+        &:hover{
+            background-color: @body-color;
+            border-bottom: 1px solid @theme-color;
+        }
+        &.on{
+            color: @theme-color;
+            border-bottom: 1px solid @theme-color;
+        }
+    }
+    .search{
+        position: relative;
+    }
+    .seBtn{
+        position: absolute;
+        right: 5px;
+        top: 14px;
+    }
+    .input{
+        width: 160px;
+        height: 28px;
+        margin-top: 8px;
+        padding: 0 6px;
+        color: #999;
+        border-radius: 2px;
+        transition: border-color ease-in .3s;
+        border: 1px solid #ccc;        
+        &:focus{
+            border-color:@theme-color;
+        }
     }
      @media (max-width: 979px){
          .poster {
              display: none;
+         }
+         .header {
+            border-left: 1px solid #d9d9d9;
+        }   
+         .article {
+            min-width: 600px;
+            width: 80%;
          }
      }
 </style>
@@ -53,10 +101,18 @@
                 </div>
             </div>
             <div :class="[$style.article,'pull-left']">
-                <div class="search">
-                    
+                <div :class="$style.header">
+                    <ul :class="[$style.tab,'pull-left']">
+                        <li :class="[$style.tabItem,'hover',{[$style.on]:true}]">发现</li><li :class="[$style.tabItem,'hover']">精选</li>
+                    </ul>
+                    <div :class="[$style.search,'pull-right']">
+                        <input :class="$style.input" type="search" value="" placeholder="搜索" @keyup.enter="search">
+                        <a href="javascript:;" :class="[$style.seBtn,'hover']" @click="search">
+                            <y-icon name="search"></y-icon>
+                        </a>
+                    </div>
                 </div>
-                <div class="list"></div>
+                <div :class="$style.list"></div>
             </div>
       </div>
 </template>
@@ -75,6 +131,9 @@
             ...mapGetters({
                 posterUrl: 'posterUrl'
             }),
+            search(){
+                alert(11)
+            },
             goWrite(){
                 this.$router.push('/app/write')
             }

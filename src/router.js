@@ -44,4 +44,3 @@ const ROUTER_SETTING = {
 const router = new VueRouter(ROUTER_SETTING)
 
 export default router;
-
