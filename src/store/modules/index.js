@@ -1,4 +1,4 @@
-import entrance from './entrance';
+import account from './account';
 export default {
-    entrance
+    account
 }

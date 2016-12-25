@@ -66,7 +66,7 @@
                         </li>
                         <li :class="[$style.menuItem,'link']">
                             <y-icon name="loginout"></y-icon>
-                            <a href="javascript:;" @click="loginout">退出登录</a>
+                            <a href="javascript:;" @click.stop="loginout">退出登录</a>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +86,7 @@
         },
         methods: {
             loginout(){
-
+                this.$emit('loginout');
             },
             hideMenu(){
                 if(this.menuTimmer){

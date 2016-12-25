@@ -103,7 +103,8 @@
             <div :class="[$style.article,'pull-left']">
                 <div :class="$style.header">
                     <ul :class="[$style.tab,'pull-left']">
-                        <li :class="[$style.tabItem,'hover',{[$style.on]:true}]">发现</li><li :class="[$style.tabItem,'hover']">精选</li>
+                        <li :class="[$style.tabItem,'hover',{[$style.on]:true}]">发现</li><!--
+                        --><li :class="[$style.tabItem,'hover']">精选</li>
                     </ul>
                     <div :class="[$style.search,'pull-right']">
                         <input :class="$style.input" type="search" value="" placeholder="搜索" @keyup.enter="search">

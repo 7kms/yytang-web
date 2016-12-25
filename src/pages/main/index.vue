@@ -1,7 +1,7 @@
 <template>
     <div class="y-content">
         <Slide></Slide>
-        <userLabel :userInfo="userInfo"></userLabel>
+        <userLabel :userInfo="userInfo" @loginout="loginout"></userLabel>
         <router-view></router-view>
     </div>
 </template>
@@ -25,7 +25,14 @@
             userLabel
         },
         methods: {
-
+            loginout() {
+                this.$store.dispatch('loginout')
+                .then(resData => {
+                    console.log(resData);
+                },resData => {
+                    console.log(resData);
+                });
+            }
         }
     }
 </script>
