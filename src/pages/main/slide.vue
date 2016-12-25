@@ -51,7 +51,7 @@
         <div :class="[$style.label]" v-toolTip.right="'目录'">
             <y-icon name="mulu"></y-icon>
         </div>
-         <div :class="[$style.label]">
+         <div :class="[$style.label]" v-toolTip.right="'下载app'">
             <y-icon name="mobile"></y-icon>
         </div>
     </div>

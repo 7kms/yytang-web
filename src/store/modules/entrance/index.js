@@ -7,7 +7,10 @@ const state = {
     regInfo: {
         loading: false
     },
-    accountInfo: {}
+    accountInfo: {
+        id: 1,
+        name: '刘诗诗'
+    }
 }
 const getters = {
     loginLoading: state => state.loginInfo.loading,

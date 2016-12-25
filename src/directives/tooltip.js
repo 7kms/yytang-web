@@ -16,15 +16,9 @@ export default {
         el.append(span);
         el.addEventListener('mouseover', function () {
             util.addClass(span, 'show');
-            // keys.forEach(key => {
-            //     util.addClass(span, key);
-            // })
         });
         el.addEventListener('mouseleave', function () {
             util.removeClass(span, 'show');
-            // keys.forEach(key => {
-            //     util.removeClass(span, key);
-            // });
         });
     }
 }
