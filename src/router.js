@@ -13,7 +13,22 @@ const ROUTER_SETTING = {
             path: '/app',
             component: resolve => require(['./pages/main/index.vue'], resolve),
             children: [
-                { path: '', component: resolve => require(['./pages/main/Recommend.vue'], resolve) },
+                { 
+                    path: '',
+                    component: resolve => require(['./pages/main/recommend.vue'], resolve),
+                    children: [
+                        {
+                            path: 'discover',
+                            name: 'discover',
+                            component: resolve => require(['./pages/main/discover.vue'], resolve)
+                        },
+                        {
+                            path: 'beauty',
+                            name: 'beauty',
+                            component: resolve => require(['./pages/main/beauty.vue'], resolve)
+                        }
+                    ]
+                },
                 { 
                     path: 'notes',
                     component: resolve => require(['./pages/notes/index.vue'], resolve),
