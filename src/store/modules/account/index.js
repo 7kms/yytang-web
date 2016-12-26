@@ -20,7 +20,7 @@ const actions = {
     login ({ commit, state, dispatch }, accountInfo) {
         commit(types.LOGIN, { isLoading: true });
         return new Promise((resolve, reject) => {
-             $api.post('/login', accountInfo)
+             $api.post('/user/login', accountInfo)
             .then(data => {
                 commit(types.LOGIN_SUCCESS, data)
                 resolve(data);

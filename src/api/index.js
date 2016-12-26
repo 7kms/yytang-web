@@ -23,9 +23,10 @@ export default {
             var options = Object.assign({}, baseConfig)
             options.params = dataObj;
             Vue.http.get(absoluteUrl, options).then(res => {
-                resolve(res)
+                console.log(res)
+                resolve(res.body)
             }, res => {
-                reject(res)
+                reject(res.body)
             })
         })
     },
@@ -34,6 +35,7 @@ export default {
             var absoluteUrl = config.serverUrl + url;
             var options = Object.assign({}, baseConfig)
             Vue.http.post(absoluteUrl, dataObj, options).then(res => {
+                console.log(res)
                 resolve(res.body)
             }, res => {
                 reject(res.body)

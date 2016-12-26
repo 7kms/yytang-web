@@ -16,6 +16,7 @@ const ROUTER_SETTING = {
                 { 
                     path: '',
                     component: resolve => require(['./pages/main/recommend.vue'], resolve),
+                    redirect: '/app/discover',
                     children: [
                         {
                             path: 'discover',
