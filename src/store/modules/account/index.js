@@ -34,6 +34,7 @@ const actions = {
         return new Promise((resolve, reject) => {
              $api.post('/user/loginout')
             .then(data => {
+                commit(types.LOGIN_OUT);
                 resolve(data);
             }, data => {
                 reject(data);
@@ -69,13 +70,16 @@ const mutations = {
     [types.REGISTURE] (state, { isLoading }) {
         state.regInfo.loading = isLoading
     },
-    [types.REGISTURE_SUCCESS] (state, { user }) {
+    [types.REGISTURE_SUCCESS] (state, { user }) {   
         state.accountInfo = user;
         state.regInfo.loading = false;
     },
     [types.REGISTURE_FAILE] (state, accountInfo) {
         state.accountInfo = '';
         state.regInfo.loading = false;
+    },
+    [types.LOGIN_OUT] (state, accountInfo) {
+        state.accountInfo = {};
     }
 }
 

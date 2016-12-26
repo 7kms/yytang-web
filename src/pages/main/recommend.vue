@@ -113,7 +113,9 @@
                         </a>
                     </div>
                 </div>
-                <div :class="$style.list"></div>
+                <div :class="$style.list">
+                  
+                </div>
             </div>
       </div>
 </template>

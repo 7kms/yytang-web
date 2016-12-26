@@ -28,9 +28,9 @@
             loginout() {
                 this.$store.dispatch('loginout')
                 .then(resData => {
-                    console.log(resData);
+                    this.$router.push('/entrance');
                 },resData => {
-                    console.log(resData);
+                    this.$Toast.show({text:resData.msg});
                 });
             }
         }

@@ -18,7 +18,6 @@ const ROUTER_SETTING = {
                     path: 'notes',
                     component: resolve => require(['./pages/notes/index.vue'], resolve),
                     children: [
-
                         {
                             path: 'write',
                             component: resolve => require(['./pages/notes/write.vue'], resolve)
