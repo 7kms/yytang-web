@@ -24,9 +24,9 @@ const ROUTER_SETTING = {
                             component: resolve => require(['./pages/main/discover.vue'], resolve)
                         },
                         {
-                            path: 'beauty',
-                            name: 'beauty',
-                            component: resolve => require(['./pages/main/beauty.vue'], resolve)
+                            path: 'exquisite',
+                            name: 'exquisite',
+                            component: resolve => require(['./pages/main/exquisite.vue'], resolve)
                         }
                     ]
                 },
