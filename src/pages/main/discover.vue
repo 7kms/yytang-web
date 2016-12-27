@@ -9,7 +9,7 @@
 <template>
     <div>
         <ul :class="$style.list">
-            <li :class="$style.item" v-for="item in list">
+            <li :class="$style.item" v-for="item in list" :key="item.id">
                 <div>{{item.text}}</div>
             </li>
         </ul>
@@ -31,12 +31,11 @@
         },
         methods: {
             getDiscoverList(start,count){
-                var _this = this;
                 $api.get('/public/discover',{start,count})
                 .then(resData => {
                     debugger
-                    _this.list.concat(resData)
-                    _this.$set(_this.list,'list')
+                    this.list = this.list.concat(resData)
+                    // _this.$set(_this.list,'list')
                     
                 }, resData => {
                     console.log(resData);
