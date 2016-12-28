@@ -9,8 +9,9 @@
 <template>
     <div>
         <ul :class="$style.list">
-            <li :class="$style.item" v-for="item in list" :key="item.id">
-                <div>{{item.text}}</div>
+            <li :class="$style.item" v-for="item in list" :key="item.id" @click="goOriginal(item)">
+                <h3>{{item.title}}</h3>
+                <div>{{item.content}}</div>
             </li>
         </ul>
     </div>
@@ -20,21 +21,24 @@
     import $api from 'api';
     export default {
         created () {
-            this.getDiscoverList(this.start,this.count);
+            this.getDiscoverList(this.skip,this.limit);
         },
         data () {
             return {
-                start: 0,
-                count: 10,
-                list: [{text:'你好'}]
+                skip: 0,
+                limit: 10,
+                list: []
             }
         },
         methods: {
-            getDiscoverList(start,count){
-                $api.get('/public/discover',{start,count})
+            goOriginal(item){
+                window.open(item.originalUrl,'_blank');
+            },
+            getDiscoverList(skip,limit){
+                $api.get('/public/juejin/discover',{skip,limit})
                 .then(resData => {
-                    debugger
-                    this.list = this.list.concat(resData)
+                    console.log(resData)
+                    this.list = this.list.concat(resData.results)
                     // _this.$set(_this.list,'list')
                     
                 }, resData => {
