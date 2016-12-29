@@ -83,8 +83,8 @@
                 accountlHint: true,
                 emailAccountText: '账号不符合规范',
                 user:{
-                    account: 'example@163.com',
-                    password: '111111'
+                    account: '15901126559',
+                    password: 'tangliang'
                 }
             }
         },

@@ -20,7 +20,7 @@ const actions = {
     login ({ commit, state, dispatch }, accountInfo) {
         commit(types.LOGIN, { isLoading: true });
         return new Promise((resolve, reject) => {
-             $api.post('/user/login', accountInfo)
+             $api.post('/public/juejin/login', accountInfo)
             .then(data => {
                 commit(types.LOGIN_SUCCESS, data)
                 resolve(data);
