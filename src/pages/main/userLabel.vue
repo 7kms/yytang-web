@@ -33,8 +33,16 @@
         transition: margin .3s;
         &:hover{
             margin-left: -10px;
-        }
-        
+        } 
+    }
+    .avatar{
+        display: inline-block;
+        margin-right: 5px;
+        border-radius: 50%;
+    }
+    .username{
+        display: inline-block;
+        max-width: 68px;
     }
 </style>
 <template>
@@ -45,8 +53,13 @@
         </template>
         <template v-else>
             <span class="hover" @mouseover="showMenu" @mouseleave="hideMenu">
-                <y-icon name="user"></y-icon>
-                <span>{{ userInfo.name }}</span> 
+                <template v-if="userInfo.avatar_hd">
+                    <img :class="$style.avatar" v-bind:src="userInfo.avatar_hd" alt="" width="25" height="25">
+                </template>
+                <template v-else>
+                     <y-icon name="user"></y-icon>
+                </template>
+                <span :class="[$style.username,'one-line']">{{ userInfo.username }}</span> 
                 <y-icon name="down"></y-icon>
             </span>
             <transition name="fade">
@@ -108,7 +121,7 @@
         },
         computed:{
             isLogin(){
-                return this.userInfo.id;
+                return this.userInfo.username;
             }
         }
     }

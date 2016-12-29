@@ -57,6 +57,10 @@ const ROUTER_SETTING = {
             ]
         },
         {
+            path: '/yjin',
+            component: resolve => require(['./pages/main/yjin.vue'], resolve)
+        },
+        {
             path: '*',
             component: resolve => require(['./pages/error/404.vue'], resolve)
         }

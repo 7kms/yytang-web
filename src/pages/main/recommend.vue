@@ -5,7 +5,8 @@
         background-color: #fff;
     }
     .poster {
-        position: relative;
+        position: fixed;
+        left: 45px;
         width: 25%;
         height: 100%;
         background-image:url('../../assets/images/recommend-bg.jpg');
@@ -36,6 +37,7 @@
         }
     }
     .article {
+        margin-left: ~"calc(25% + 45px)";
         min-width: 600px;
         width: 60%;
     }
@@ -88,6 +90,7 @@
          .article {
             min-width: 600px;
             width: 80%;
+            margin-left: 45px;
          }
      }
 </style>

@@ -59,8 +59,8 @@ const mutations = {
     [types.LOGIN] (state, { isLoading }) {
         state.loginInfo.loading = isLoading
     },
-    [types.LOGIN_SUCCESS] (state, { user }) {
-        state.accountInfo = user;
+    [types.LOGIN_SUCCESS] (state, userData) {
+        state.accountInfo = userData;
         state.loginInfo.loading = false;
     },
     [types.LOGIN_FAILE] (state, accountInfo) {
