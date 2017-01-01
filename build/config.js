@@ -10,7 +10,7 @@ module.exports = {
         assetsSubDir: 'static',
         htmlOptions: {
             filename: 'index.html',
-            title: 'Y金'
+            title: '弹枪'
         }
     },
     release:{
@@ -19,7 +19,7 @@ module.exports = {
         },
         htmlOptions: {
             filename: 'index.html',
-            title: 'Y金'
+            title: '弹枪'
         },
         sourceMap: true,
         assetsRoot: path.resolve(__dirname,'../__dist__'),

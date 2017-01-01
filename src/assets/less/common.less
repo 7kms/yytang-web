@@ -1,6 +1,7 @@
 @import './const.less';
 html,body,.y-content{
     height: 100%;
+    font-size: 62.5%;
 }
 body{
         background-color: @body-color;
@@ -25,11 +26,11 @@ a{
     }
 }
 ::-moz-selection {
-  color: @highlight; background: @theme-color;
+  color: @theme-color; background: @highlight;
 }
 
 ::selection {
- color: @highlight; background: @theme-color;
+ color: @theme-color; background: @highlight;
 } 
 input{
     outline: none;
@@ -50,7 +51,7 @@ input{
 .pull-right{
     float: right;
 }
-.inlne-block{
+.inline-block{
     display: inline-block;
     vertical-align: middle;
 }
@@ -58,4 +59,8 @@ input{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+.clearfix{
+    display: block;
+    clear: both;
 }

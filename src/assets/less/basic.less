@@ -3,15 +3,17 @@
 @import './components.less';
 @import './animate.less';
 
-.y-content{
-    position: relative;
-    margin-left: @slideW;
-}
 .link,.hover{
     cursor: pointer;
     &:hover{
-        color: @theme-color;
+        color: @hint-color;
     }
+}
+.highlight{
+    color: @hint-color;
+}
+.container {
+    margin: 0 auto;
 }
 .y-tooltip {
     @space: 6px;

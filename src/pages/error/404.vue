@@ -24,7 +24,7 @@
     export default {
         data(){
             return {
-                count: 3000
+                count: 3
             }
         },
         computed:{
