@@ -28,8 +28,10 @@
         margin-right: 30px;
     }
     .content{
-        margin-left: 140px;
-        margin-top: 64px;
+        width: 65%;
+        min-width: 600px;
+        margin-left: 150px;
+        margin-top: 75px;
     }
 </style>
 <template>
@@ -48,8 +50,8 @@
         </header>
         <div class="wrap">
             <yAside></yAside>
-            <div :class="$style.content">
-                <List :dataList="dataList"></List>
+            <div :class="[$style.content,'pull-left']">
+                <List :dataList="dataList" :loading="loading" @click="click"></List>
             </div>
         </div>
     </div>
@@ -67,12 +69,15 @@
         },
         data(){
             return {
+                loading: true,
                 dataList: []
             }
         },
         methods:{
             search(category){
-                var paramObj = {"category":"android","createdAt":{"$gte":{"__type":"Date","iso":"2016-12-25T15:12:05.308Z"}}};
+                var paramObj = {"category":category,"createdAt":{"$gte":{"__type":"Date","iso":"2016-12-25T15:12:05.308Z"}}};
+                this.dataList = [];
+                this.loading = true;
                 $api.get('/public/juejin/discover',{
                     where: JSON.stringify(paramObj),
                     include:'user',
@@ -81,12 +86,19 @@
                     this.dataList = this.dataList.concat(dataInfo.results);
                 },(err)=>{
                     console.log(err);
+                }).then(()=>{
+                    this.loading = false;
                 });
             },
+            click(dataObj){
+                // console.log(dataObj.url)
+                window.open(dataObj.url,'_blank');
+            }
         },
         watch:{
             '$route' (to, from) {
-                const {category='recommend'} = to.params;
+                let {category='recommend'} = to.params;
+                category = category == 'recommend' ? 'frontend' : category;
                 this.search(category);
             }
         },

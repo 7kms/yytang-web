@@ -61,6 +61,11 @@ input{
     overflow: hidden;
 }
 .clearfix{
-    display: block;
-    clear: both;
+    &::after{
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+    }
+    
 }

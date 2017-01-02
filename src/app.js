@@ -8,9 +8,11 @@ import globalStyle from './assets/less/basic.less'
 import App from './app.vue'
 import components from './components'
 import directives from './directives'
+import filters from './filters'
 sync(store, router)
 Vue.use(components)
 Vue.use(directives)
+Vue.use(filters)
 new Vue({
   el: '#app',
   store,

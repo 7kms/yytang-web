@@ -31,13 +31,13 @@
             <router-link tag="li" to="/welcom/android" :class="[$style.item,'link',{[$style.on]:navHighlight('android')}]">
                 <y-icon name="android"></y-icon><span :class="[$style.itemLabel,'inline-block']">Android</span>
             </router-link>
-            <router-link tag="li" to="/welcom/h5" :class="[$style.item,'link',{[$style.on]:navHighlight('h5')}]">
+            <router-link tag="li" to="/welcom/frontend" :class="[$style.item,'link',{[$style.on]:navHighlight('frontend')}]">
                 <y-icon name="front"></y-icon><span :class="[$style.itemLabel,'inline-block']">前端</span>
             </router-link>
             <router-link tag="li" to="/welcom/ios" :class="[$style.item,'link',{[$style.on]:navHighlight('ios')}]">
                 <y-icon name="ios"></y-icon><span :class="[$style.itemLabel,'inline-block']">IOS</span>
             </router-link>
-            <router-link tag="li" to="/welcom/server" :class="[$style.item,'link',{[$style.on]:navHighlight('server')}]">
+            <router-link tag="li" to="/welcom/backend" :class="[$style.item,'link',{[$style.on]:navHighlight('backend')}]">
                 <y-icon name="database"></y-icon><span :class="[$style.itemLabel,'inline-block']">后端</span>
             </router-link>
         </ul>
