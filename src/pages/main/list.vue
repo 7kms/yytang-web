@@ -13,22 +13,21 @@
         border-bottom: 1px solid #f1f1f1;
     }
     .list{
+        min-height: 300px;
         padding: 10px;
     }
 </style>
 <template>
     <div :class="$style.entryBox">
         <h3 :class="$style.boxTitle">精选</h3>
-        <template v-if="loading">
-            <ul :class="$style.list" > 
-               <li>数据正在拉取...</li>
-            </ul>
-        </template>
-        <template v-else>
-             <ul :class="$style.list" > 
+        <div :class="$style.list">
+            <ul>
                 <item v-for="data in dataList" :key="data.hotIndex" :dataObj="data" @click="click"></item>
-             </ul>
-        </template>
+            </ul>
+            <div v-if="loading">数据正在拉取...</div>
+            <div v-if="!loading && dataList.length == 0">暂时木有更多数据...</div>
+        </div>
+        
     </div>
 </template>
 <script>

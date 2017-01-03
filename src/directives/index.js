@@ -1,6 +1,8 @@
 import toolTip from './tooltip';
+import scroll from './scroll';
 const yDirectives = {
-    toolTip
+    toolTip,
+    scroll
 }
 const install = function (Vue) {
      Object.keys(yDirectives).forEach((key) => {

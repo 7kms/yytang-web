@@ -7,12 +7,12 @@ const ROUTER_SETTING = {
 	routes: [
         {
             path: '/welcom/recommend',
-            component: resolve => require(['./pages/juejin/index.vue'], resolve),
+            component: resolve => require(['./pages/main/index.vue'], resolve),
             alias: '/'
         },
         {
             path: '/welcom/:category?',
-            component: resolve => require(['./pages/juejin/index.vue'], resolve)
+            component: resolve => require(['./pages/main/index.vue'], resolve)
         },
         {
             path: '/entrance',
