@@ -6,9 +6,8 @@ const ROUTER_SETTING = {
     base: '/',
 	routes: [
         {
-            path: '/welcom/recommend',
-            component: resolve => require(['./pages/main/index.vue'], resolve),
-            alias: '/'
+            path: '/',
+            component: resolve => require(['./pages/main/index.vue'], resolve)
         },
         {
             path: '/welcom/:category?',

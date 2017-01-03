@@ -5,3 +5,4 @@ export const LOGIN_OUT = 'account/LOGIN_OUT';
 export const REGISTURE = 'account/REGISTURE';
 export const REGISTURE_SUCCESS = 'account/REGISTURE_SUCCESS';
 export const REGISTURE_FAILE = 'account/REGISTURE_FAILE';
+export const SET_ACCOUNT = 'account/REGISTURE_FAILE';

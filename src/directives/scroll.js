@@ -92,6 +92,6 @@ export default {
         });
     },
     unbind (el) {
-       el.scrollEventTarget.removeEventListener('scroll', el[ctx].scrollListener);
+       el[ctx].scrollEventTarget.removeEventListener('scroll', el[ctx].scrollListener);
     }
 }

@@ -20,7 +20,7 @@ const actions = {
     login ({ commit, state, dispatch }, accountInfo) {
         commit(types.LOGIN, { isLoading: true });
         return new Promise((resolve, reject) => {
-             $api.post('/public/juejin/login', accountInfo)
+             $api.post('/user/login', accountInfo)
             .then(data => {
                 commit(types.LOGIN_SUCCESS, data)
                 resolve(data);
@@ -53,6 +53,9 @@ const actions = {
                 reject(data);
             })
         })
+    },
+    setAccountInfo ({ commit, state, dispatch }, accountInfo) {
+        commit(types.REGISTURE_FAILE, accountInfo);
     }
 }
 const mutations = {
@@ -80,6 +83,9 @@ const mutations = {
     },
     [types.LOGIN_OUT] (state, accountInfo) {
         state.accountInfo = {};
+    },
+    [types.REGISTURE_FAILE] (state, accountInfo) {
+        state.accountInfo = accountInfo;
     }
 }
 

@@ -6,6 +6,7 @@
         top: 0;
         right: 0;
         height: 64px;
+        min-width: 760px;
         color: #fff;
         background-color: @theme-color;
     }
@@ -120,7 +121,15 @@
             click(dataObj) {
                 // console.log(dataObj.url)
                 window.open(dataObj.url,'_blank');
-            }
+            },
+            getUserInfo(){
+                $api.get('/user/info')
+                .then(resData=>{
+                    this.$store.dispatch('setAccountInfo',resData);
+                },resErr=>{
+                    console.log(resErr);
+                })
+            },
         },
         watch:{
             '$route' (to, from) {
@@ -131,6 +140,7 @@
         created(){
             let {category='recommend'} = this.$route.params;
             this.refresh(category);
+            this.getUserInfo();
         }
     }
 </script>
