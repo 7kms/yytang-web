@@ -1,7 +1,7 @@
 <style lang="less" module>
     @import '../../assets/less/const.less';
     .wrap{
-        margin-top: 100px;
+        padding-top: 100px;
     }
     .title {
         font-size: 24px;

@@ -33,7 +33,10 @@ Toast.newInstance = properties => {
     }).$children[0];
     return {
         show (options) {
-            toast.$parent.refresh(options)
+            if (typeof options == 'string') {
+                toast.$parent.refresh({ text: options });
+            }
+            toast.$parent.refresh(options);
         }
     }
 }

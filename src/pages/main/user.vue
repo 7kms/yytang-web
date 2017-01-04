@@ -130,6 +130,7 @@
 </template>
 <script>
     import { mapGetters } from 'vuex';
+    import $api from 'api';
     export default{
         data (){
             return {
@@ -138,7 +139,12 @@
         },
         methods: {
             loginout(){
-                this.$emit('loginout');
+               this.$store.dispatch('loginout')
+               .then(resData=>{
+                   this.$router.push('/entrance');
+               },resError=>{
+                   this.$Toast(resError.msg);
+               })
             },
             hideMenu(){
                 if(this.menuTimmer){
