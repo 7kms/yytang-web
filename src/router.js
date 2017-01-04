@@ -7,11 +7,31 @@ const ROUTER_SETTING = {
 	routes: [
         {
             path: '/',
-            component: resolve => require(['./pages/main/index.vue'], resolve)
-        },
-        {
-            path: '/welcom/:category?',
-            component: resolve => require(['./pages/main/index.vue'], resolve)
+            component: resolve => require(['./pages/main/index.vue'], resolve),
+            children: [
+                {
+                    path: '',
+                    component: resolve => require(['./pages/main/content.vue'], resolve)
+                },
+                {
+                    path: 'welcom/:category?',
+                    component: resolve => require(['./pages/main/content.vue'], resolve)
+                },
+                {
+                    path: 'notes',
+                    component: resolve => require(['./pages/notes/index.vue'], resolve),
+                    children: [
+                        {
+                            path: 'write',
+                            component: resolve => require(['./pages/notes/write.vue'], resolve)
+                        },
+                        {
+                            path: 'edit',
+                            component: resolve => require(['./pages/notes/edit.vue'], resolve)
+                        }
+                    ]
+                }
+            ]
         },
         {
             path: '/entrance',

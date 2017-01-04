@@ -106,6 +106,10 @@
                             <router-link to="/app/setting">我的收藏</router-link>
                         </li>
                          <li :class="[$style.menuItem,'link']">
+                            <y-icon name="collect"></y-icon>
+                            <router-link to="/notes">我的笔记</router-link>
+                        </li>
+                         <li :class="[$style.menuItem,'link']">
                             <y-icon name="tag"></y-icon>
                             <router-link to="/app/setting">标签管理</router-link>
                         </li>
