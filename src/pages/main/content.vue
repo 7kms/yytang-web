@@ -1,6 +1,6 @@
 <template>
     <div>
-         <List :dataList="dataList" :loading="loading" @click="click" v-scroll="loadMore" scroll-distance="100" scroll-disabled="isDisabled"></List>
+         <List :dataList="dataList" :loading="loading" :category="tabName" @click="click" v-scroll="loadMore" scroll-distance="100" scroll-disabled="isDisabled"></List>
     </div>
 </template>
 <script>
@@ -20,6 +20,27 @@
             }
         },
         computed: {
+            tabName(){
+                let {category} = this.$route.params;
+                let tabName = '精选';
+                switch(category){
+                    case 'frontend':
+                        tabName = '前端';
+                        break;
+                    case 'android':
+                        tabName = 'Android';
+                        break;
+                    case 'ios':
+                        tabName = 'IOS';
+                        break;
+                    case 'backend':
+                        tabName = 'Sever';
+                        break;
+                    default:
+                        break;    
+                }
+                return tabName;
+            },
             isDisabled(){
                 return this.loading || this.noMore;
             }
@@ -32,13 +53,13 @@
                     skip: this.page * this.limit,
                     order:'-hotIndex'
                 };
-                var whereObj = {"category":this.category,"createdAt":{"$gte":{"__type":"Date","iso":"2016-12-25T15:12:05.308Z"}}};
+                var whereObj = {"category":this.category,"createdAt":{"$gte":{"__type":"Date","iso":new Date( Date.now() - 86400*7*1000 ).toISOString()}}};
                 paramObj.where = JSON.stringify(whereObj);
                 return paramObj;
             },
             search(){
                 this.loading = true;
-                $api.get('/public/juejin/discover',this.getParams(), {
+                $api.get('/public/discover',this.getParams(), {
                 before: (request) => {
                          // abort previous request, if exists
                         if (this.previousRequest) {

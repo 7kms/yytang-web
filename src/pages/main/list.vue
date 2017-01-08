@@ -19,7 +19,7 @@
 </style>
 <template>
     <div :class="$style.entryBox">
-        <h3 :class="$style.boxTitle">精选</h3>
+        <h3 :class="$style.boxTitle">{{category}}</h3>
         <div :class="$style.list">
             <ul>
                 <item v-for="data in dataList" :key="data.hotIndex" :dataObj="data" @click="click"></item>
@@ -35,6 +35,7 @@
     export default {
         props:{
             dataList: Array,
+            category: String,
             loading: Boolean
         },
         components:{

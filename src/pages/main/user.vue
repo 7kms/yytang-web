@@ -93,38 +93,14 @@
             <transition name="fade">
                 <div :class="[$style.menu,'text-center']" v-show="menu" @mouseover="showMenu" @mouseleave="hideMenu">
                     <ul>
-                        <li :class="[$style.menuItem,'link']">
-                            <y-icon name="data"></y-icon>
-                            <router-link to="/app/user">我的主页</router-link>
-                        </li>
-                        <li :class="[$style.menuItem,'link']">
-                            <y-icon name="like"></y-icon>
-                            <router-link to="/app/notes">我喜欢的</router-link>
-                        </li>
-                        <li :class="[$style.menuItem,'link']">
-                            <y-icon name="collect"></y-icon>
-                            <router-link to="/app/setting">我的收藏</router-link>
-                        </li>
-                         <li :class="[$style.menuItem,'link']">
-                            <y-icon name="collect"></y-icon>
-                            <router-link to="/notes">我的笔记</router-link>
-                        </li>
-                         <li :class="[$style.menuItem,'link']">
-                            <y-icon name="tag"></y-icon>
-                            <router-link to="/app/setting">标签管理</router-link>
-                        </li>
-                         <li :class="[$style.menuItem,'link']">
-                            <y-icon name="setting"></y-icon>
-                            <router-link to="/app/setting">账号设置</router-link>
-                        </li>
-                        <li :class="$style.split"></li>
-                         <li :class="[$style.menuItem,'link']">
-                            <y-icon name="about"></y-icon>
-                            <router-link to="/app/setting">关于弹枪</router-link>
-                        </li>
-                        <li :class="[$style.menuItem,'link']">
-                            <y-icon name="loginout"></y-icon>
-                            <a href="javascript:;" @click.stop="loginout">退出登录</a>
+                        <li :class="[$style.menuItem,'link']" v-for="tab in list">
+                            <y-icon :name="tab.iconName"></y-icon>
+                            <template v-if="tab.to">
+                                 <router-link :to="tab.to">{{tab.name}}</router-link>
+                            </template>
+                           <template v-else>
+                                <a href="javascript:;" @click="clickMenu(tab.signal)">{{tab.name}}</a>
+                           </template>
                         </li>
                     </ul>
                 </div>
@@ -138,7 +114,50 @@
     export default{
         data (){
             return {
-                menu: false
+                menu: false,
+                list:[
+                    {
+                        name:'我的主页',
+                        iconName:'data',
+                        to:'/app/user'
+                    },
+                     {
+                        name:'我喜欢的',
+                        iconName:'like',
+                        to:'/app/notes'
+                    },
+                     {
+                        name:'我的收藏',
+                        iconName:'collect',
+                        to:'/app/setting'
+                    },
+                    {
+                        name:'我的笔记',
+                        iconName:'collect',
+                        to:'/notes'
+                    },
+                    {
+                        name:'标签管理',
+                        iconName:'tag',
+                        to:'/app/setting'
+                    },
+                    {
+                        name:'账号设置',
+                        iconName:'setting',
+                        to:'/app/setting'
+                    },
+                     {
+                        name:'关于弹枪',
+                        iconName:'about',
+                        to:'/app/setting'
+                    },
+                    {
+                        name:'退出登录',
+                        iconName:'loginout',
+                        to:'',
+                        signal:'loginout'
+                    }
+                ]
             }
         },
         methods: {
@@ -149,6 +168,11 @@
                },resError=>{
                    this.$Toast(resError.msg);
                })
+            },
+            clickMenu(signal){
+                if(signal == 'loginout'){
+                    this.loginout();
+                }
             },
             hideMenu(){
                 if(this.menuTimmer){

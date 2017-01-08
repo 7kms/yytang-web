@@ -11,15 +11,25 @@ const ROUTER_SETTING = {
             children: [
                 {
                     path: '',
-                    component: resolve => require(['./pages/main/content.vue'], resolve)
+                    name: 'home',
+                    component: resolve => require(['./pages/main/content.vue'], resolve),
+                    meta: {
+                        title: '主页'
+                    }
                 },
                 {
                     path: 'welcom/:category?',
-                    component: resolve => require(['./pages/main/content.vue'], resolve)
+                    component: resolve => require(['./pages/main/content.vue'], resolve),
+                    meta: {
+                        title: 'welcom'
+                    }
                 },
                 {
                     path: 'notes',
                     component: resolve => require(['./pages/notes/index.vue'], resolve),
+                    meta: {
+                         title: '笔记'
+                    },
                     children: [
                         {
                             path: 'write',
@@ -38,8 +48,20 @@ const ROUTER_SETTING = {
             component: resolve => require(['./pages/entrance/index.vue'], resolve),
             redirect: '/entrance/login',
             children: [
-                { path: 'login', component: resolve => require(['./pages/entrance/Login.vue'], resolve) },
-                { path: 'register', component: resolve => require(['./pages/entrance/Register.vue'], resolve) },
+                {
+                     path: 'login', 
+                     component: resolve => require(['./pages/entrance/Login.vue'], resolve),
+                     meta: {
+                         title: 'sign in'
+                    } 
+                },
+                { 
+                    path: 'register', 
+                    component: resolve => require(['./pages/entrance/Register.vue'], resolve),
+                    meta: {
+                         title: 'sign up'
+                    } 
+                },
                 { path: '*', redirect: 'login' }
             ]
         },
@@ -57,5 +79,18 @@ const ROUTER_SETTING = {
     }
 };
 const router = new VueRouter(ROUTER_SETTING)
+const title = '弹枪';
+router.beforeEach((to, from, next) => {
+    let titleStr = ''
+    // 倒序遍历数组获取匹配到的路由节点，拼接各部分title
+    for (let i = to.matched.length - 1; i >= 0; i--) {
+        titleStr += `${to.matched[i].meta.title ? to.matched[i].meta.title : ''}`
+    }
+    // 添加站点名
+    titleStr += `-${title}`;
+    // 更新title
+    document.title = titleStr;
+    next();
+});
 
 export default router;

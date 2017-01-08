@@ -19,6 +19,7 @@
         border-radius: 4px;
     }
     .itemDesc{
+        width: 50%;
         padding: 0 10px;
         flex: 1;
     }

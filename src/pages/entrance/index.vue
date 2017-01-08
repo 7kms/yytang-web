@@ -51,7 +51,7 @@
     <div :class="$style.wrap">
         <div class="text-center" :class="$style.logo">
             <img src="../../assets/images/logo-114.png" width="100" height="100" alt="logo">
-            <p :class="$style.title">独YY不如众YY?</p>
+            <p :class="$style.title">弹枪不是枪?</p>
         </div>
         <div :class="$style.nav">
             <div class="text-center" :class="$style.navTab">
