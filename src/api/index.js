@@ -17,10 +17,10 @@ var baseConfig = {
 }
 configHttpOptions();
 export default {
-    get: (url, dataObj) => {
+get: (url, dataObj, opt = {}) => {
         return new Promise((resolve, reject) => {
             var absoluteUrl = config.serverUrl + url;
-            var options = Object.assign({}, baseConfig)
+            var options = Object.assign({}, baseConfig, opt)
             options.params = dataObj;
             Vue.http.get(absoluteUrl, options).then(res => {
                 console.log(res)
@@ -30,10 +30,10 @@ export default {
             })
         })
     },
-    post: (url, dataObj) => {
+    post: (url, dataObj, opt = {}) => {
         return new Promise((resolve, reject) => {
             var absoluteUrl = config.serverUrl + url;
-            var options = Object.assign({}, baseConfig)
+            var options = Object.assign({}, baseConfig, opt)
             Vue.http.post(absoluteUrl, dataObj, options).then(res => {
                 console.log(res)
                 resolve(res.body)

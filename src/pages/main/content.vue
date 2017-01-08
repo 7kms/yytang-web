@@ -38,7 +38,16 @@
             },
             search(){
                 this.loading = true;
-                $api.get('/public/juejin/discover',this.getParams()).then(dataInfo=>{
+                $api.get('/public/juejin/discover',this.getParams(), {
+                before: (request) => {
+                         // abort previous request, if exists
+                        if (this.previousRequest) {
+                            this.previousRequest.abort();
+                        }
+                        // set previous request on Vue instance
+                        this.previousRequest = request;
+                    }
+                }).then(dataInfo=>{
                     this.page++;
                     this.dataList = [...this.dataList,...dataInfo.results];
                     if(dataInfo.results.length < this.limit){
