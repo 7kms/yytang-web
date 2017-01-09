@@ -109,9 +109,10 @@
     </div>
 </template>
 <script>
-    import { mapGetters } from 'vuex';
-    import $api from 'api';
     export default{
+        props:{
+            userInfo: Object
+        },
         data (){
             return {
                 menu: false,
@@ -193,7 +194,6 @@
             }
         },
         computed:{
-            ...mapGetters(['userInfo']),
             isLogin(){
                 return this.userInfo.username;
             }

@@ -46,11 +46,11 @@
                     </router-link>
                     <li :class="$style.item"><span class="inline-block">悄悄的,打鸟的不要</span></li>
                 </ul>
-                <User :class="[$style.user,'pull-right']"></User>
+                <User :class="[$style.user,'pull-right']" :userInfo="accountInfo"></User>
             </div>
         </header>
         <div class="wrap">
-            <yAside></yAside>
+            <yAside :isLogin="isLogin"></yAside>
             <div :class="[$style.content,'pull-left']">
                 <router-view></router-view>                
             </div>
@@ -58,6 +58,7 @@
     </div>
 </template>
 <script>
+    import { mapGetters } from 'vuex';
     import yAside from './aside.vue';
     import User from './user.vue';
     import $api from 'api';
@@ -74,7 +75,14 @@
                 },resErr=>{
                     console.log(resErr);
                 })
+            }
+        },
+        computed:{
+            isLogin(){
+               const {username = ''} = this.accountInfo;
+               return username.length > 0;
             },
+            ...mapGetters(['accountInfo'])
         },
         created(){
             this.getUserInfo();

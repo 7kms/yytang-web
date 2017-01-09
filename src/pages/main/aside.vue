@@ -47,7 +47,7 @@
 </style>
 <template>
     <div :class="$style.aside">
-        <template v-if="isLogin">
+        <template v-if="!isLogin">
              <ul>
                 <router-link tag="li" to="/welcom" :class="[$style.item,'link',{[$style.on]:navHighlight('recommend')}]">
                     <y-icon name="bulb"></y-icon><span :class="[$style.itemLabel,'inline-block']">推荐</span>
@@ -80,9 +80,11 @@
 </template>
 <script>
     import { mapGetters } from 'vuex';
+    import api from 'api';
+    let labelArr = ['Android','前端','IOS'];
     export default {
         props:{
-
+            isLogin: Boolean
         },
         data(){
             return{
@@ -218,11 +220,25 @@
                 })
             }
         },
-        computed:{
-            ...mapGetters(['userInfo']),
-            isLogin(){
-                return this.userInfo.username;
+        watch:{
+            isLogin(newValue){
+                if(newValue){
+                    var id = this.$state.account.accountInfo;
+                    alert(id);
+                   api.get('/user/subscribe',{
+                       where: {"user":{"__type":"Pointer","className":"_User","objectId":id}},
+                       include: 'tag',
+                       limit: 100,
+                       order: 'createdAt'
+                    })
+                }
             }
+        },
+        computed:{
+            
+        },
+        created(){
+
         }
     }
 </script>
