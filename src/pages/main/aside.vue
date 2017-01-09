@@ -22,27 +22,21 @@
         margin-left:10px; 
     }
 
-
-    .timelineNav{
-        padding: 0 10px;
-    }
     .title,
     .category{
         height: 30px;
         line-height: 30px;
     }
     .title{
+        padding-left: 20px;
         font-weight: 700;
         font-size: @font-16;
-        &.active{
-            & + .categoryList{
-                display: block;
-            }
-        }
+    }
+    .category{
+        padding-left: 40px;
     }
     .categoryList{
-        display: none;
-        padding: 0 10px;
+        overflow: hidden;
         .category{
             &.on{
                 font-weight: bold;
@@ -73,14 +67,14 @@
             </ul>
         </template>
         <template v-else>
-            <ul :class="$style.timelineNav">
-                <li :class="[$style.timeline]" v-for="nav of navList">
-                    <div :class="[$style.title,'hover',{[$style.active]:nav.active}]">{{nav.title}}</div>
-                    <ul :class="$style.categoryList">
-                        <li :class="[$style.category,'hover',{[$style.on]:item.on}]" v-for="item in nav.list">{{item.label}}</li>
+            <li :class="[$style.timeline]" v-for="(nav,index) of navList" :key="index">
+                <div :class="[$style.title,'hover']" @click="switchNav(nav)">{{nav.title}}</div>
+                <transition name="slide">
+                    <ul :class="$style.categoryList" v-show="nav.active" :style="{height: (nav.list.length * 30 + 'px')}">
+                        <li :class="[$style.category,'hover',{[$style.on]:item.on}]" v-for="(item,index) in nav.list" @click="switchItem(nav,item)" :key="index">{{item.label}}</li>                            
                     </ul>
-                </li>
-            </ul>
+               </transition>
+            </li>
         </template>
     </div>
 </template>
@@ -98,8 +92,7 @@
                         active: true,
                         list:[
                             {
-                                label:'我关注的',
-                                on: true
+                                label:'我关注的'
                             },
                             {
                                 label:'Android'
@@ -111,6 +104,83 @@
                                 label:'前端'
                             }
                         ]
+                    },
+                    {
+                        title:'专栏',
+                        active: false,
+                        list:[
+                            {
+                                label:'全部'
+                            },
+                            {
+                                label:'Android'
+                            },
+                            {
+                                label:'前端'
+                            },
+                            {
+                                label:'IOS'
+                            },
+                            {
+                                label:'后端'
+                            },
+                            {
+                                label:'设计'
+                            },
+                            {
+                                label:'产品'
+                            },
+                            {
+                                label:'工具资源'
+                            },
+                            {
+                                label:'阅读'
+                            }
+                        ]
+                    },
+                    {
+                        title:'收藏集',
+                        list:[
+                            {
+                                label:'编辑推荐'
+                            },
+                            {
+                                label:'全部'
+                            }
+                        ]
+                    },
+                    {
+                        title:'发现',
+                        active: false,
+                        list:[
+                            {
+                                label:'全部'
+                            },
+                            {
+                                label:'Android'
+                            },
+                            {
+                                label:'前端'
+                            },
+                            {
+                                label:'IOS'
+                            },
+                            {
+                                label:'后端'
+                            },
+                            {
+                                label:'设计'
+                            },
+                            {
+                                label:'产品'
+                            },
+                            {
+                                label:'工具资源'
+                            },
+                            {
+                                label:'阅读'
+                            }
+                        ]
                     }
                 ]
             }
@@ -120,8 +190,32 @@
                 const { category = 'recommend' } = this.$route.params;
                 return category == navName;
             },
-            switchNav() {
-
+            switchNav(nav) {
+                this.navList.map((obj) => {
+                    if(obj == nav){
+                        obj.active = true;
+                        obj.list.map((item,index)=>{
+                            if(index == 0){
+                                this.$set(item,'on',true);
+                            }else {
+                                this.$set(item,'on',false);
+                            }
+                            return item;
+                        })
+                    }else{
+                        obj.active = false;
+                    }
+                    return obj;
+                });
+            },
+            switchItem(nav,item) {
+                nav.list.forEach(obj => {
+                    if(obj == item){
+                        this.$set(obj,'on',true);
+                    }else{
+                        this.$set(obj,'on',false);
+                    }
+                })
             }
         },
         computed:{
