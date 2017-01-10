@@ -52,7 +52,7 @@
         <div class="wrap">
             <yAside :isLogin="isLogin"></yAside>
             <div :class="[$style.content,'pull-left']">
-                <router-view></router-view>                
+                <router-view></router-view>
             </div>
         </div>
     </div>
@@ -78,11 +78,11 @@
             }
         },
         computed:{
+            ...mapGetters(['accountInfo']),
             isLogin(){
                const {username = ''} = this.accountInfo;
                return username.length > 0;
-            },
-            ...mapGetters(['accountInfo'])
+            }
         },
         created(){
             this.getUserInfo();

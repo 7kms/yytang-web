@@ -80,114 +80,94 @@
 </template>
 <script>
     import { mapGetters } from 'vuex';
-    import api from 'api';
-    let labelArr = ['Android','前端','IOS'];
+    import $api from 'api';
+    let labelArr = ['Android','前端','IOS','设计','产品','工具资源','阅读'];
     export default {
         props:{
-            isLogin: Boolean
+            isLogin:{
+                type: Boolean,
+                default: false
+            } 
         },
         data(){
             return{
-                navList:[
-                    {
-                        title:'首页',
-                        active: true,
-                        list:[
-                            {
-                                label:'我关注的'
-                            },
-                            {
-                                label:'Android'
-                            },
-                            {
-                                label:'IOS'
-                            },
-                             {
-                                label:'前端'
-                            }
-                        ]
-                    },
-                    {
-                        title:'专栏',
-                        active: false,
-                        list:[
-                            {
-                                label:'全部'
-                            },
-                            {
-                                label:'Android'
-                            },
-                            {
-                                label:'前端'
-                            },
-                            {
-                                label:'IOS'
-                            },
-                            {
-                                label:'后端'
-                            },
-                            {
-                                label:'设计'
-                            },
-                            {
-                                label:'产品'
-                            },
-                            {
-                                label:'工具资源'
-                            },
-                            {
-                                label:'阅读'
-                            }
-                        ]
-                    },
-                    {
-                        title:'收藏集',
-                        list:[
-                            {
-                                label:'编辑推荐'
-                            },
-                            {
-                                label:'全部'
-                            }
-                        ]
-                    },
-                    {
-                        title:'发现',
-                        active: false,
-                        list:[
-                            {
-                                label:'全部'
-                            },
-                            {
-                                label:'Android'
-                            },
-                            {
-                                label:'前端'
-                            },
-                            {
-                                label:'IOS'
-                            },
-                            {
-                                label:'后端'
-                            },
-                            {
-                                label:'设计'
-                            },
-                            {
-                                label:'产品'
-                            },
-                            {
-                                label:'工具资源'
-                            },
-                            {
-                                label:'阅读'
-                            }
-                        ]
-                    }
-                ]
+                navList:[]
             }
         },
         methods:{
+            generateNav(subscribeArr){
+                let navArr = ['首页','专栏','收藏集','发现'];
+                let categoryArr = [
+                            {
+                                label:'全部'
+                            },
+                            {
+                                label:'Android',
+                                category: 'android'
+                            },
+                            {
+                                label:'前端',
+                                category: 'frontend'
+                            },
+                            {
+                                label:'IOS',
+                                category: 'ios'
+                            },
+                            {
+                                label:'后端',
+                                category: 'backend'
+                            },
+                            {
+                                label:'设计',
+                                category: 'frontend'
+                            },
+                            {
+                                label:'产品',
+                                category: 'frontend'
+                            },
+                            {
+                                label:'工具资源',
+                                category: 'frontend'
+                            },
+                            {
+                                label:'阅读',
+                                category: 'frontend'
+                            }
+                        ];
+                let subNavObj = {
+                    title: '首页',
+                    active: true,
+                    list:[]
+                };
+                navArr.map((nav,index) => {
+                    var obj = {};
+                    obj.title = nav;
+                    obj.active = index == 0 ? true : false;
+                    obj.list = [];
+                    if(nav == '首页'){
+                        subscribeArr.map(sub => {
+                            if(sub.tag.showOnNav){
+                               obj.list.push({
+                                   label: sub.tag.title,
+                                   category: sub.tag.alias.split(/\s+/)[0]
+                               });
+                            }
+                        })
+                    }else if(nav == '专栏' || nav == '发现'){
+                        categoryArr.forEach((item) => {
+                            obj.list.push(Object.assign({},item));
+                        })
+                    }else if(nav == '收藏集'){
+                        obj.list.push({
+                            label: '全部'
+                        });
+                        obj.list.push({
+                            label: '编辑推荐'
+                        });
+                    }
+                    this.navList.push(obj);
+                });
+            },
             navHighlight(navName){
                 const { category = 'recommend' } = this.$route.params;
                 return category == navName;
@@ -218,19 +198,26 @@
                         this.$set(obj,'on',false);
                     }
                 })
+            },
+            getSubscribInfo(){
+                const id = this.$store.state.account.accountInfo.objectId;
+                var whereObj = {"user":{"__type":"Pointer","className":"_User","objectId": id}};
+                $api.get('/user/subscribe',{
+                    where: JSON.stringify(whereObj),
+                    include: 'tag',
+                    limit: 100,
+                    order: 'createdAt'
+                }).then(resData => {
+                    this.generateNav(resData.results);
+                },resError => {
+                    console.log(resError);
+                });
             }
         },
         watch:{
             isLogin(newValue){
                 if(newValue){
-                    var id = this.$state.account.accountInfo;
-                    alert(id);
-                   api.get('/user/subscribe',{
-                       where: {"user":{"__type":"Pointer","className":"_User","objectId":id}},
-                       include: 'tag',
-                       limit: 100,
-                       order: 'createdAt'
-                    })
+                     this.getSubscribInfo();
                 }
             }
         },
@@ -238,7 +225,9 @@
             
         },
         created(){
-
+        },
+        destroyed(){
+            console.log('destory');
         }
     }
 </script>
