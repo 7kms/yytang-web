@@ -25,6 +25,10 @@ const ROUTER_SETTING = {
                     }
                 },
                 {
+                    path: '/:column(timeline|special|collection|discover)/:category?',
+                    component: resolve => require(['./pages/column/index.vue'], resolve)
+                },
+                {
                     path: 'notes',
                     component: resolve => require(['./pages/notes/index.vue'], resolve),
                     meta: {

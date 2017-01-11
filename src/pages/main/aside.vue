@@ -96,44 +96,38 @@
         },
         methods:{
             generateNav(subscribeArr){
-                let navArr = ['首页','专栏','收藏集','发现'];
+                let navArr = [
+                        {title: '首页', path:'/timeline'},
+                        {title: '专栏', path:'/special'},
+                        {title: '收藏集', path:'/collection'},
+                        {title: '发现', path:'/discover'}
+                    ];
                 let categoryArr = [
-                            {
-                                label:'全部'
-                            },
-                            {
-                                label:'Android',
-                                category: 'android'
-                            },
-                            {
-                                label:'前端',
-                                category: 'frontend'
-                            },
-                            {
-                                label:'IOS',
-                                category: 'ios'
-                            },
-                            {
-                                label:'后端',
-                                category: 'backend'
-                            },
-                            {
-                                label:'设计',
-                                category: 'frontend'
-                            },
-                            {
-                                label:'产品',
-                                category: 'frontend'
-                            },
-                            {
-                                label:'工具资源',
-                                category: 'frontend'
-                            },
-                            {
-                                label:'阅读',
-                                category: 'frontend'
-                            }
-                        ];
+                        {
+                            label:'Android',
+                            category: 'android'
+                        },
+                        {
+                            label:'前端',
+                            category: 'frontend'
+                        },
+                        {
+                            label:'IOS',
+                            category: 'ios'
+                        },
+                        {
+                            label:'后端',
+                            category: 'backend'
+                        },
+                        {
+                            label:'工具资源',
+                            category: 'tool'
+                        },
+                        {
+                            label:'阅读',
+                            category: 'read'
+                        }
+                ];
                 let subNavObj = {
                     title: '首页',
                     active: true,
@@ -141,28 +135,42 @@
                 };
                 navArr.map((nav,index) => {
                     var obj = {};
-                    obj.title = nav;
-                    obj.active = index == 0 ? true : false;
+                    obj.title = nav.title;
+                    obj.active = false;
                     obj.list = [];
-                    if(nav == '首页'){
+                    if(nav.title == '首页'){
+                        obj.list.push({
+                            label: '我关注的',
+                            path: `${nav.path}`
+                        });
                         subscribeArr.map(sub => {
                             if(sub.tag.showOnNav){
                                obj.list.push({
                                    label: sub.tag.title,
-                                   category: sub.tag.alias.split(/\s+/)[0]
+                                   category: sub.tag.alias.split(/\s+/)[0],
+                                   path: `${nav.path}/${sub.tag.alias.split(/\s+/)[0]}`
                                });
                             }
-                        })
-                    }else if(nav == '专栏' || nav == '发现'){
-                        categoryArr.forEach((item) => {
-                            obj.list.push(Object.assign({},item));
-                        })
-                    }else if(nav == '收藏集'){
+                        });
+                    }else if(nav.title == '专栏' || nav.title == '发现'){
+                        categoryArr.forEach((item,index) => {
+                            if(index == 0){
+                                obj.list.push({
+                                    label: '全部',
+                                    path: `${nav.path}`
+                                });
+                            }else{
+                                obj.list.push(Object.assign({path:`${nav.path}/${item.category}`},item));
+                            }
+                        });
+                    }else if(nav.title == '收藏集'){
                         obj.list.push({
-                            label: '全部'
+                            label: '全部',
+                            path: `${nav.path}`
                         });
                         obj.list.push({
-                            label: '编辑推荐'
+                            label: '编辑推荐',
+                            path: `${nav.path}/recommend`
                         });
                     }
                     this.navList.push(obj);
@@ -189,6 +197,7 @@
                     }
                     return obj;
                 });
+                this.changeRoute(nav.list[0]);
             },
             switchItem(nav,item) {
                 nav.list.forEach(obj => {
@@ -197,7 +206,8 @@
                     }else{
                         this.$set(obj,'on',false);
                     }
-                })
+                });
+                this.changeRoute(item);
             },
             getSubscribInfo(){
                 const id = this.$store.state.account.accountInfo.objectId;
@@ -209,25 +219,26 @@
                     order: 'createdAt'
                 }).then(resData => {
                     this.generateNav(resData.results);
+                    this.changeRoute(this.navList[0].list[0]);
                 },resError => {
                     console.log(resError);
                 });
+            },
+            changeRoute(item){
+                this.$router.push(item.path);
             }
         },
         watch:{
             isLogin(newValue){
                 if(newValue){
-                     this.getSubscribInfo();
+                    this.getSubscribInfo();
                 }
             }
         },
-        computed:{
-            
-        },
         created(){
-        },
-        destroyed(){
-            console.log('destory');
+            if(this.isLogin){
+                this.getSubscribInfo();
+            }
         }
     }
 </script>
