@@ -75,6 +75,22 @@
                 },resErr=>{
                     console.log(resErr);
                 })
+            },
+            getSubscribInfo(){
+                const id = this.$store.state.account.accountInfo.objectId;
+                var whereObj = {"user":{"__type":"Pointer","className":"_User","objectId": id}};
+                $api.get('/user/subscribe',{
+                    where: JSON.stringify(whereObj),
+                    include: 'tag',
+                    limit: 100,
+                    order: 'createdAt'
+                }).then(resData => {
+                    this.$store.dispatch('setAccountInfo',resData.results);
+                    // this.generateNav();
+                    // this.changeRoute(this.navList[0].list[0]);
+                },resError => {
+                    console.log(resError);
+                });
             }
         },
         computed:{
