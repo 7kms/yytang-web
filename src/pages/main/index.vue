@@ -86,6 +86,7 @@
                     order: 'createdAt'
                 }).then(resData => {
                     this.$store.dispatch('setAccountInfo',resData.results);
+                    this.$store.dispatch('getSubscrib');
                     // this.generateNav();
                     // this.changeRoute(this.navList[0].list[0]);
                 },resError => {
