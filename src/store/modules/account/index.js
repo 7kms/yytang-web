@@ -17,24 +17,18 @@ const getters = {
     accountInfo: state => state.accountInfo
 }
 const actions = {
-    login ({ commit, state, dispatch }, accountInfo) {
-        commit(types.LOGIN, { isLoading: true });
-        return new Promise((resolve, reject) => {
-            $api.post('/user/login', accountInfo)
-            .then(data => {
-                commit(types.LOGIN_SUCCESS, data)
-                resolve(data);
-            }, data => {
-                commit(types.LOGIN_FAILE, data);
-                reject(data);
-            })
-        })
+    [types.LOGIN_SUCCESS] ({ commit, state, dispatch }, data) {
+        commit(types.LOGIN_SUCCESS, data);
     },
-    loginout ({ commit, state, dispatch }) {
+    [types.LOGIN_FAILE] ({ commit, state, dispatch }, data) {
+        commit(types.LOGIN_FAILE, data);
+    },
+    loginout ({ commit, state, dispatch, rootState }) {
         return new Promise((resolve, reject) => {
              $api.post('/user/loginout')
             .then(data => {
                 commit(types.LOGIN_OUT);
+                rootState.store.user.commit('user/SET_USERINFO', data);
                 resolve(data);
             }, data => {
                 reject(data);
@@ -53,9 +47,6 @@ const actions = {
                 reject(data);
             })
         })
-    },
-    setAccountInfo ({ commit, state, dispatch }, accountInfo) {
-        commit(types.REGISTURE_FAILE, accountInfo);
     }
 }
 const mutations = {
@@ -83,9 +74,6 @@ const mutations = {
     },
     [types.LOGIN_OUT] (state, accountInfo) {
         state.accountInfo = {};
-    },
-    [types.REGISTURE_FAILE] (state, accountInfo) {
-        state.accountInfo = accountInfo;
     }
 }
 

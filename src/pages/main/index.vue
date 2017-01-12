@@ -46,11 +46,11 @@
                     </router-link>
                     <li :class="$style.item"><span class="inline-block">悄悄的,打鸟的不要</span></li>
                 </ul>
-                <User :class="[$style.user,'pull-right']" :userInfo="accountInfo"></User>
+                <User :class="[$style.user,'pull-right']" :userInfo="userInfo"></User>
             </div>
         </header>
         <div class="wrap">
-            <yAside :isLogin="isLogin"></yAside>
+            <yAside :isLogin="isLogin" :navList="navList"></yAside>
             <div :class="[$style.content,'pull-left']">
                 <router-view></router-view>
             </div>
@@ -69,15 +69,20 @@
         },
         methods:{
             getUserInfo(){
-                $api.get('/user/info')
-                .then(resData=>{
-                    this.$store.dispatch('setAccountInfo',resData);
-                },resErr=>{
-                    console.log(resErr);
-                })
+                var {objectId} = this.userInfo;
+                if(!objectId){
+                    $api.get('/user/info')
+                    .then(resData=>{
+                        this.$store.dispatch('user/SET_USERINFO',resData);
+                        this.getSubscribeInfo(resData.objectId);
+                    },resErr=>{
+                        console.log(resErr);
+                    })
+                }else{
+                    this.getSubscribInfo(objectId);
+                }
             },
-            getSubscribInfo(){
-                const id = this.$store.state.account.accountInfo.objectId;
+            getSubscribeInfo(id){
                 var whereObj = {"user":{"__type":"Pointer","className":"_User","objectId": id}};
                 $api.get('/user/subscribe',{
                     where: JSON.stringify(whereObj),
@@ -85,20 +90,20 @@
                     limit: 100,
                     order: 'createdAt'
                 }).then(resData => {
-                    this.$store.dispatch('setAccountInfo',resData.results);
-                    this.$store.dispatch('getSubscrib');
-                    // this.generateNav();
-                    // this.changeRoute(this.navList[0].list[0]);
+                    this.$store.dispatch('user/SET_SUBSCRIBE',resData.results);
                 },resError => {
                     console.log(resError);
                 });
             }
         },
         computed:{
-            ...mapGetters(['accountInfo']),
+            ...mapGetters({
+                userInfo: 'user/GET_USERINFO',
+                navList: 'user/GET_ASIDENAV'
+            }),
             isLogin(){
-               const {username = ''} = this.accountInfo;
-               return username.length > 0;
+               const {objectId = ''} = this.userInfo;
+               return objectId.length > 0;
             }
         },
         created(){

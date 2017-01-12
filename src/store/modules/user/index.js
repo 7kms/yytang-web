@@ -1,35 +1,8 @@
 import * as types from './mutation-types';
 import $api from 'api'
 
-const state = {
-    userInfo: {},
-    userNav: [],
-    subscribeInfo: {}
-}
-
-const actions = {
-    [types.SET_SUBSCRIBE] ({ commit, state, dispatch }, subscribArr) {
-        commit(types.SET_SUBSCRIBE, subscribArr);
-        commit(types.SET_SELFNAV, subscribArr);
-    }
-}
-
-const getters = {
-    [types.GET_SUBSCRIBE]: (state) => {
-        return state
-    }
-}
-
-const mutations = {
-    [types.SET_SUBSCRIBE] (state, subscribArr) {
-        state.subscribeInfo = subscribArr;
-    },
-    [types.SET_SELFNAV] (state, subscribArr) {
-        
-    }
-}
-
 function generateNav (subscribeArr) {
+    let navList = [];
     let navArr = [
         { title: '首页', path: '/timeline' },
         { title: '专栏', path: '/special' },
@@ -38,47 +11,47 @@ function generateNav (subscribeArr) {
     ];
     let categoryArr = [
             {
-                label:'Android',
+                label: 'Android',
                 category: 'android'
             },
             {
-                label:'前端',
+                label: '前端',
                 category: 'frontend'
             },
             {
-                label:'IOS',
+                label: 'IOS',
                 category: 'ios'
             },
             {
-                label:'后端',
+                label: '后端',
                 category: 'backend'
             },
             {
-                label:'工具资源',
+                label: '工具资源',
                 category: 'tool'
             },
             {
-                label:'阅读',
+                label: '阅读',
                 category: 'read'
             }
     ];
     let subNavObj = {
         title: '首页',
         active: true,
-        list:[]
+        list: []
     };
-    navArr.map((nav,index) => {
+    navArr.map((nav, index) => {
         var obj = {};
         obj.title = nav.title;
         obj.active = false;
         obj.list = [];
-        if(nav.title == '首页'){
+        if (nav.title == '首页') {
             obj.list.push({
                 label: '我关注的',
                 path: `${nav.path}`
             });
             subscribeArr.map(sub => {
-                if(sub.tag.showOnNav){
+                if (sub.tag.showOnNav) {
                     obj.list.push({
                         label: sub.tag.title,
                         category: sub.tag.alias.split(/\s+/)[0],
@@ -86,18 +59,18 @@ function generateNav (subscribeArr) {
                     });
                 }
             });
-        }else if(nav.title == '专栏' || nav.title == '发现'){
-            categoryArr.forEach((item,index) => {
-                if(index == 0){
+        } else if (nav.title == '专栏' || nav.title == '发现') {
+            categoryArr.forEach((item, index) => {
+                if (index == 0) {
                     obj.list.push({
                         label: '全部',
                         path: `${nav.path}`
                     });
-                }else{
-                    obj.list.push(Object.assign({path:`${nav.path}/${item.category}`},item));
+                } else {
+                    obj.list.push(Object.assign({ path: `${nav.path}/${item.category}` }, item));
                 }
             });
-        }else if(nav.title == '收藏集'){
+        } else if (nav.title == '收藏集') {
             obj.list.push({
                 label: '全部',
                 path: `${nav.path}`
@@ -107,8 +80,50 @@ function generateNav (subscribeArr) {
                 path: `${nav.path}/recommend`
             });
         }
-        this.navList.push(obj);
+        navList.push(obj);
     });
+    return navList;
+}
+
+
+const state = {
+    userInfo: {},
+    asideNav: [],
+    subscribeInfo: {}
+}
+
+const actions = {
+    [types.SET_SUBSCRIBE] ({ commit, state, dispatch }, subscribeArr) {
+        commit(types.SET_SUBSCRIBE, subscribeArr);
+        commit(types.SET_ASIDENAV, subscribeArr);
+    },
+    [types.SET_USERINFO] ({ commit, state, dispatch }, userInfo) {
+        commit(types.SET_USERINFO, userInfo);
+    }
+}
+
+const getters = {
+    [types.GET_SUBSCRIBE] (state) {
+        return state.subscribeInfo;
+    },
+    [types.GET_ASIDENAV] (state) {
+        return state.asideNav;
+    },
+    [types.GET_USERINFO] (state) {
+        return state.userInfo;
+    }
+}
+
+const mutations = {
+    [types.SET_SUBSCRIBE] (state, subscribeArr) {
+        state.subscribeInfo = subscribeArr;
+    },
+    [types.SET_ASIDENAV] (state, subscribeArr) {
+        state.asideNav = generateNav(subscribeArr);
+    },
+    [types.SET_USERINFO] (state, userInfo) {
+        state.userInfo = userInfo;
+    }
 }
 
 export default {

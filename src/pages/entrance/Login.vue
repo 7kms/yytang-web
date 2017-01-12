@@ -75,6 +75,7 @@
 </template>
 <script>
     import { mapGetters } from 'vuex';
+    import $api from 'api';
     import Util from '../../util';
     export default {
         data() {
@@ -117,14 +118,17 @@
             },
             login(){
                 if(!this.validate())return false;
-                this.$store.dispatch('login',this.user)
-                .then(res=>{
-                    this.$router.replace(this.$route.query.redirect || '/')
-                },res=>{
-                    console.log(res);
-                    this.pwdHint = false;
-                    this.pwdErrorText = res.msg;
-                });
+                $api.post('/user/login', this.user)
+                    .then(data => {
+                        this.$store.dispatch('account/LOGIN_SUCCESS',data);
+                        this.$store.dispatch('user/SET_USERINFO',data);
+                        this.$router.replace(this.$route.query.redirect || '/');
+                    }, data => {
+                        this.$store.dispatch('account/LOGIN_FAILE',data);
+                        this.$store.dispatch('user/SET_USERINFO',{});
+                        this.pwdHint = false;
+                        this.pwdErrorText = res.msg;
+                    })
             }
         }
     }
