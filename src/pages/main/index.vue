@@ -50,7 +50,7 @@
             </div>
         </header>
         <div class="wrap">
-            <yAside :isLogin="isLogin" :navList="navList"></yAside>
+            <yAside :isLogin="isLogin" :navList="navList" :isInitialize="isInitialize"></yAside>
             <div :class="[$style.content,'pull-left']">
                 <router-view></router-view>
             </div>
@@ -78,28 +78,32 @@
                     },resErr=>{
                         console.log(resErr);
                     })
+                    
                 }else{
-                    this.getSubscribInfo(objectId);
+                    this.getSubscribeInfo(objectId);
                 }
             },
             getSubscribeInfo(id){
                 var whereObj = {"user":{"__type":"Pointer","className":"_User","objectId": id}};
-                $api.get('/user/subscribe',{
+                 $api.get('/user/subscribe',{
                     where: JSON.stringify(whereObj),
                     include: 'tag',
                     limit: 100,
                     order: 'createdAt'
                 }).then(resData => {
                     this.$store.dispatch('user/SET_SUBSCRIBE',resData.results);
+                    // this.$router.push('/timeline');
                 },resError => {
                     console.log(resError);
+                     this.$router.push('/welcom');
                 });
             }
         },
         computed:{
             ...mapGetters({
                 userInfo: 'user/GET_USERINFO',
-                navList: 'user/GET_ASIDENAV'
+                navList: 'user/GET_ASIDENAV',
+                isInitialize: 'user/GET_INITIAL_STATUS'
             }),
             isLogin(){
                const {objectId = ''} = this.userInfo;

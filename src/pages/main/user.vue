@@ -163,9 +163,11 @@
         },
         methods: {
             loginout(){
-               this.$store.dispatch('loginout')
+               this.$store.dispatch('account/LOGIN_OUT')
                .then(resData=>{
-                   this.$router.push('/entrance');
+                //    this.$store.dispatch('user/SET_USERINFO',{});
+                   window.location.href = '/entrance';
+                //    this.$router.push('/entrance');
                },resError=>{
                    this.$Toast(resError.msg);
                })

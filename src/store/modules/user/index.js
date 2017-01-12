@@ -89,13 +89,15 @@ function generateNav (subscribeArr) {
 const state = {
     userInfo: {},
     asideNav: [],
-    subscribeInfo: {}
+    subscribeInfo: {},
+    isInitialPending: true
 }
 
 const actions = {
     [types.SET_SUBSCRIBE] ({ commit, state, dispatch }, subscribeArr) {
         commit(types.SET_SUBSCRIBE, subscribeArr);
         commit(types.SET_ASIDENAV, subscribeArr);
+        commit(types.SET_INITIAL_STATUS, subscribeArr);
     },
     [types.SET_USERINFO] ({ commit, state, dispatch }, userInfo) {
         commit(types.SET_USERINFO, userInfo);
@@ -111,6 +113,9 @@ const getters = {
     },
     [types.GET_USERINFO] (state) {
         return state.userInfo;
+    },
+    [types.GET_INITIAL_STATUS] (state) {
+        return state.isInitialPending;
     }
 }
 
@@ -123,6 +128,9 @@ const mutations = {
     },
     [types.SET_USERINFO] (state, userInfo) {
         state.userInfo = userInfo;
+    },
+    [types.SET_INITIAL_STATUS] (state) {
+        state.isInitialPending = false;
     }
 }
 

@@ -47,43 +47,47 @@
 </style>
 <template>
     <div :class="$style.aside">
-        <template v-if="!isLogin">
-             <ul>
-                <router-link tag="li" to="/welcom" :class="[$style.item,'link',{[$style.on]:navHighlight('recommend')}]">
-                    <y-icon name="bulb"></y-icon><span :class="[$style.itemLabel,'inline-block']">推荐</span>
-                </router-link>
-                <router-link tag="li" to="/welcom/android" :class="[$style.item,'link',{[$style.on]:navHighlight('android')}]">
-                    <y-icon name="android"></y-icon><span :class="[$style.itemLabel,'inline-block']">Android</span>
-                </router-link>
-                <router-link tag="li" to="/welcom/frontend" :class="[$style.item,'link',{[$style.on]:navHighlight('frontend')}]">
-                    <y-icon name="front"></y-icon><span :class="[$style.itemLabel,'inline-block']">前端</span>
-                </router-link>
-                <router-link tag="li" to="/welcom/ios" :class="[$style.item,'link',{[$style.on]:navHighlight('ios')}]">
-                    <y-icon name="ios"></y-icon><span :class="[$style.itemLabel,'inline-block']">IOS</span>
-                </router-link>
-                <router-link tag="li" to="/welcom/backend" :class="[$style.item,'link',{[$style.on]:navHighlight('backend')}]">
-                    <y-icon name="database"></y-icon><span :class="[$style.itemLabel,'inline-block']">后端</span>
-                </router-link>
-            </ul>
+        <template v-if="!isInitialize">
+            <template v-if="!isLogin">
+                <ul>
+                    <router-link tag="li" to="/welcom" :class="[$style.item,'link',{[$style.on]:navHighlight('recommend')}]">
+                        <y-icon name="bulb"></y-icon><span :class="[$style.itemLabel,'inline-block']">推荐</span>
+                    </router-link>
+                    <router-link tag="li" to="/welcom/android" :class="[$style.item,'link',{[$style.on]:navHighlight('android')}]">
+                        <y-icon name="android"></y-icon><span :class="[$style.itemLabel,'inline-block']">Android</span>
+                    </router-link>
+                    <router-link tag="li" to="/welcom/frontend" :class="[$style.item,'link',{[$style.on]:navHighlight('frontend')}]">
+                        <y-icon name="front"></y-icon><span :class="[$style.itemLabel,'inline-block']">前端</span>
+                    </router-link>
+                    <router-link tag="li" to="/welcom/ios" :class="[$style.item,'link',{[$style.on]:navHighlight('ios')}]">
+                        <y-icon name="ios"></y-icon><span :class="[$style.itemLabel,'inline-block']">IOS</span>
+                    </router-link>
+                    <router-link tag="li" to="/welcom/backend" :class="[$style.item,'link',{[$style.on]:navHighlight('backend')}]">
+                        <y-icon name="database"></y-icon><span :class="[$style.itemLabel,'inline-block']">后端</span>
+                    </router-link>
+                </ul>
+            </template>
+            <template v-else>
+                <li :class="[$style.timeline]" v-for="(nav,index) of navList" :key="index">
+                    <div :class="[$style.title,'hover']" @click="switchNav(nav)">{{nav.title}}</div>
+                    <transition name="slide">
+                        <ul :class="$style.categoryList" v-show="nav.active" :style="{height: (nav.list.length * 30 + 'px')}">
+                            <li :class="[$style.category,'hover',{[$style.on]:item.on}]" v-for="(item,index) in nav.list" @click="switchItem(nav,item)" :key="index">{{item.label}}</li>                            
+                        </ul>
+                </transition>
+                </li>
+            </template>
         </template>
-        <template v-else>
-            <li :class="[$style.timeline]" v-for="(nav,index) of navList" :key="index">
-                <div :class="[$style.title,'hover']" @click="switchNav(nav)">{{nav.title}}</div>
-                <transition name="slide">
-                    <ul :class="$style.categoryList" v-show="nav.active" :style="{height: (nav.list.length * 30 + 'px')}">
-                        <li :class="[$style.category,'hover',{[$style.on]:item.on}]" v-for="(item,index) in nav.list" @click="switchItem(nav,item)" :key="index">{{item.label}}</li>                            
-                    </ul>
-               </transition>
-            </li>
-        </template>
+        <span v-else>正在初始化...</span>
     </div>
 </template>
 <script>
-    import { mapGetters } from 'vuex';
-    import $api from 'api';
-    let labelArr = ['Android','前端','IOS','设计','产品','工具资源','阅读'];
     export default {
         props:{
+            isInitialize:{
+                type: Boolean,
+                default: true
+            },
             isLogin:{
                 type: Boolean,
                 default: false
@@ -129,11 +133,6 @@
             },
             changeRoute(item){
                 this.$router.push(item.path);
-            }
-        },
-        created(){
-            if(this.isLogin){
-                this.getSubscribInfo();
             }
         }
     }

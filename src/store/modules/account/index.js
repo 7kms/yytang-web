@@ -6,9 +6,6 @@ const state = {
     },
     regInfo: {
         loading: false
-    },
-    accountInfo: {
-        
     }
 }
 const getters = {
@@ -23,12 +20,10 @@ const actions = {
     [types.LOGIN_FAILE] ({ commit, state, dispatch }, data) {
         commit(types.LOGIN_FAILE, data);
     },
-    loginout ({ commit, state, dispatch, rootState }) {
+    [types.LOGIN_OUT] ({ commit, state, dispatch }) {
         return new Promise((resolve, reject) => {
              $api.post('/user/loginout')
             .then(data => {
-                commit(types.LOGIN_OUT);
-                rootState.store.user.commit('user/SET_USERINFO', data);
                 resolve(data);
             }, data => {
                 reject(data);
@@ -54,26 +49,19 @@ const mutations = {
         state.loginInfo.loading = isLoading
     },
     [types.LOGIN_SUCCESS] (state, userData) {
-        state.accountInfo = userData;
         state.loginInfo.loading = false;
     },
     [types.LOGIN_FAILE] (state, accountInfo) {
-        state.accountInfo = '';
         state.loginInfo.loading = false;
     },
     [types.REGISTURE] (state, { isLoading }) {
         state.regInfo.loading = isLoading
     },
     [types.REGISTURE_SUCCESS] (state, { user }) {   
-        state.accountInfo = user;
         state.regInfo.loading = false;
     },
     [types.REGISTURE_FAILE] (state, accountInfo) {
-        state.accountInfo = '';
         state.regInfo.loading = false;
-    },
-    [types.LOGIN_OUT] (state, accountInfo) {
-        state.accountInfo = {};
     }
 }
 

@@ -10,14 +10,6 @@ const ROUTER_SETTING = {
             component: resolve => require(['./pages/main/index.vue'], resolve),
             children: [
                 {
-                    path: '',
-                    name: 'home',
-                    component: resolve => require(['./pages/main/content.vue'], resolve),
-                    meta: {
-                        title: '主页'
-                    }
-                },
-                {
                     path: 'welcom/:category?',
                     component: resolve => require(['./pages/main/content.vue'], resolve),
                     meta: {
