@@ -82,9 +82,11 @@ router.beforeEach((to, from, next) => {
     for (let i = to.matched.length - 1; i >= 0; i--) {
         titleStr += `${to.matched[i].meta.title ? to.matched[i].meta.title : ''}`
     }
-    // 添加站点名
-    titleStr += `-${title}`;
-    // 更新title
+    if (titleStr) {
+        titleStr += `-${title}`
+    } else {
+        titleStr += title;
+    }
     document.title = titleStr;
     next();
 });
