@@ -71,8 +71,8 @@
                 <li :class="[$style.timeline]" v-for="(nav,index) of navList" :key="index">
                     <div :class="[$style.title,'hover']" @click="switchNav(nav)">{{nav.title}}</div>
                     <transition name="slide">
-                        <ul :class="$style.categoryList" v-show="nav.active" :style="{height: (nav.list.length * 30 + 'px')}">
-                            <li :class="[$style.category,'hover',{[$style.on]:item.on}]" v-for="(item,index) in nav.list" @click="switchItem(nav,item)" :key="index">{{item.label}}</li>                            
+                        <ul :class="$style.categoryList" v-show="userNavActive(nav)" :style="{height: (nav.list.length * 30 + 'px')}">
+                            <li :class="[$style.category,'hover',{[$style.on]:userNavHighlight(item)}]" v-for="(item,index) in nav.list" @click="switchItem(nav,item)" :key="index">{{item.label}}</li>                            
                         </ul>
                 </transition>
                 </li>
@@ -102,33 +102,18 @@
                 const { category = 'recommend' } = this.$route.params;
                 return category == navName;
             },
+            userNavActive({path}){
+                const { column } = this.$route.params;
+                return path.indexOf(column) > -1;
+            },
+            userNavHighlight(item){
+                const { path } = this.$route;
+                return path == item.path;
+            },
             switchNav(nav) {
-                this.navList.map((obj) => {
-                    if(obj == nav){
-                        obj.active = true;
-                        obj.list.map((item,index)=>{
-                            if(index == 0){
-                                this.$set(item,'on',true);
-                            }else {
-                                this.$set(item,'on',false);
-                            }
-                            return item;
-                        })
-                    }else{
-                        obj.active = false;
-                    }
-                    return obj;
-                });
                 this.changeRoute(nav.list[0]);
             },
             switchItem(nav,item) {
-                nav.list.forEach(obj => {
-                    if(obj == item){
-                        this.$set(obj,'on',true);
-                    }else{
-                        this.$set(obj,'on',false);
-                    }
-                });
                 this.changeRoute(item);
             },
             changeRoute(item){

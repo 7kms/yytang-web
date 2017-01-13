@@ -74,9 +74,16 @@
                     $api.get('/user/info')
                     .then(resData=>{
                         this.$store.dispatch('user/SET_USERINFO',resData);
-                        this.getSubscribeInfo(resData.objectId);
+                        if(resData.objectId){
+                            this.getSubscribeInfo(resData.objectId);
+                        }else{
+                            this.$store.dispatch('user/SET_INITIAL_STATUS');
+                            this.$router.push('/welcom');
+                        }
                     },resErr=>{
                         console.log(resErr);
+                        this.$store.dispatch('user/SET_INITIAL_STATUS');
+                        this.$router.push('/welcom');
                     })
                     
                 }else{
@@ -92,7 +99,7 @@
                     order: 'createdAt'
                 }).then(resData => {
                     this.$store.dispatch('user/SET_SUBSCRIBE',resData.results);
-                    // this.$router.push('/timeline');
+                    this.$router.push('/timeline');
                 },resError => {
                     console.log(resError);
                      this.$router.push('/welcom');

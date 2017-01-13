@@ -2,14 +2,14 @@ import * as types from './mutation-types';
 import $api from 'api'
 
 function generateNav (subscribeArr) {
-    let navList = [];
-    let navArr = [
+    const navList = [];
+    const navArr = [
         { title: '首页', path: '/timeline' },
         { title: '专栏', path: '/special' },
         { title: '收藏集', path: '/collection' },
         { title: '发现', path: '/discover' }
     ];
-    let categoryArr = [
+    const categoryArr = [
             {
                 label: 'Android',
                 category: 'android'
@@ -35,15 +35,10 @@ function generateNav (subscribeArr) {
                 category: 'read'
             }
     ];
-    let subNavObj = {
-        title: '首页',
-        active: true,
-        list: []
-    };
     navArr.map((nav, index) => {
         var obj = {};
         obj.title = nav.title;
-        obj.active = false;
+        obj.path = nav.path;
         obj.list = [];
         if (nav.title == '首页') {
             obj.list.push({
@@ -101,6 +96,9 @@ const actions = {
     },
     [types.SET_USERINFO] ({ commit, state, dispatch }, userInfo) {
         commit(types.SET_USERINFO, userInfo);
+    },
+    [types.SET_INITIAL_STATUS] ({ commit, state, dispatch }) {
+        commit(types.SET_INITIAL_STATUS);
     }
 }
 
