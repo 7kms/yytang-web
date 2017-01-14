@@ -73,9 +73,9 @@
             <y-icon name="search" color="#1b1b1b" :class="[$style.seBtn,'hover']"></y-icon>
         </div>
         <div :class="[$style.user,'inline-block']">
-            <router-link to="/entrance" class="link">登录</router-link>
+            <span to="/entrance" @click="login" class="link">登录</span>
             <y-icon name="dot" color="#fff"></y-icon>
-            <router-link to="/entrance/register" class="link">注册</router-link>
+            <span to="/entrance/register" @click="register" class="link">注册</span>
         </div>
     </div>
     <div v-else>
@@ -162,6 +162,12 @@
             }
         },
         methods: {
+            login(){
+                window.location.href = '/entrance';
+            },
+            register(){
+                window.location.href = '/entrance/register';
+            },
             loginout(){
                this.$store.dispatch('account/LOGIN_OUT')
                .then(resData=>{

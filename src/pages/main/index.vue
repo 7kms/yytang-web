@@ -71,40 +71,38 @@
             getUserInfo(){
                 var {objectId} = this.userInfo;
                 if(!objectId){
-                    $api.get('/user/info')
-                    .then(resData=>{
-                        this.$store.dispatch('user/SET_USERINFO',resData);
-                        if(resData.objectId){
-                            this.getSubscribeInfo(resData.objectId);
-                        }else{
+                    this.$store.dispatch('user/GET_USERINFO')
+                    .then(resData => {
+                        if (resData.objectId) {
+                            this.getSubscribeInfo();
+                        } else {
                             this.$store.dispatch('user/SET_INITIAL_STATUS');
                             this.$router.push('/welcom');
                         }
-                    },resErr=>{
+                    }, resErr => {
                         console.log(resErr);
                         this.$store.dispatch('user/SET_INITIAL_STATUS');
                         this.$router.push('/welcom');
-                    })
-                    
+                    });                    
                 }else{
-                    this.getSubscribeInfo(objectId);
+                    this.getSubscribeInfo();
                 }
             },
-            getSubscribeInfo(id){
-                var whereObj = {"user":{"__type":"Pointer","className":"_User","objectId": id}};
-                 $api.get('/user/subscribe',{
-                    where: JSON.stringify(whereObj),
-                    include: 'tag',
-                    limit: 100,
-                    order: 'createdAt'
-                }).then(resData => {
-                    this.$store.dispatch('user/SET_SUBSCRIBE',resData.results);
-                    this.$router.push('/timeline');
-                },resError => {
-                    console.log(resError);
+            getSubscribeInfo(){
+                 this.$store.dispatch('user/GET_SUBSCRIBE')
+                 .then(resData => {
+                     this.$router.push('/timeline');
+                 },resError => {
                      this.$router.push('/welcom');
-                });
+                 });
             }
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                if(vm.isLogin){
+                   vm.$router.push('/timeline')
+                }
+            })
         },
         computed:{
             ...mapGetters({
@@ -118,6 +116,7 @@
             }
         },
         created(){
+            console.log('index----created')
             this.getUserInfo();
         }
     }

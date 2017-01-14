@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store'
 Vue.use(VueRouter)
 const ROUTER_SETTING = {
 	mode: 'history', // default value 'hash'
@@ -14,6 +15,13 @@ const ROUTER_SETTING = {
                     component: resolve => require(['./pages/main/content.vue'], resolve),
                     meta: {
                         title: 'welcom'
+                    },
+                    beforeEnter (to, from, next) {
+                        if (store.state.user.userInfo.objectId) {
+                            next({ path: '/timeline' });
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {

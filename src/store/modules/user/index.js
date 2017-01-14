@@ -80,6 +80,16 @@ function generateNav (subscribeArr) {
     return navList;
 }
 
+function Generatepromise () {
+    var promisePool = {};
+    this.promise = function (promiseName, fn) {
+        if (!promisePool[promiseName]) {
+            promisePool[promiseName] = new Promise(fn);
+        }
+        return promisePool[promiseName];
+    }
+}
+var _Promise = new Generatepromise().promise;
 
 const state = {
     userInfo: {},
@@ -93,6 +103,36 @@ const actions = {
         commit(types.SET_SUBSCRIBE, subscribeArr);
         commit(types.SET_ASIDENAV, subscribeArr);
         commit(types.SET_INITIAL_STATUS, subscribeArr);
+    },
+    [types.GET_SUBSCRIBE] ({ commit, state, dispatch }) {
+        return _Promise('SUBSCRIBE', (resolve, reject) => {
+            dispatch(types.GET_USERINFO)
+            .then(() => {
+                var whereObj = { 'user': { '__type': 'Pointer', 'className': '_User', 'objectId': state.userInfo.objectId }};
+                return $api.get('/user/subscribe', {
+                            where: JSON.stringify(whereObj),
+                            include: 'tag',
+                            limit: 100,
+                            order: 'createdAt'
+                        });
+            })
+            .then(resData => {
+                dispatch(types.SET_SUBSCRIBE, resData.results);
+                resolve(resData);
+            }, resError => {
+                reject(resError);
+            });
+        })
+    },
+    [types.GET_USERINFO] ({ commit, state, dispatch }) {
+        return _Promise('USERINFO', (resolve, reject) => {
+             $api.get('/user/info').then(resData => {
+                dispatch(types.SET_USERINFO, resData);
+                resolve(resData);
+            }, resError => {
+                reject(resError);
+            });
+        });
     },
     [types.SET_USERINFO] ({ commit, state, dispatch }, userInfo) {
         commit(types.SET_USERINFO, userInfo);
