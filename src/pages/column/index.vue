@@ -1,11 +1,34 @@
 <style lang="less" module>
      @import '../../assets/less/const.less';
      .content{
-         
+        height: 100px;
+        background-color: #00beff 
+     }
+     .header{
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         height: 46px;
+         padding: 0 20px;
+         color: #777;
+         background-color: #fff;
      }
 </style>
 <template>
-    <div :class="$style.content"></div>
+    <div :class="$style.content">
+        <div :class="$style.header">
+            <div :class="$style.tabLeft">
+                <span>热门</span>
+                <span>最新</span>
+                <span>评论</span>
+            </div>
+            <div :class="$style.tabRight">
+                <span>本周最热</span>
+                <span>本月最热</span>
+                <span>历史最热</span>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
     import $api from 'api';
