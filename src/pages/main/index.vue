@@ -67,6 +67,15 @@
             yAside,
             User,
         },
+        data(){
+            return {
+                noMore: false,
+                loading: true,
+                dataList: [],
+                limit: 15,
+                page: 0
+            }
+        },
         methods:{
             getUserInfo(){
                 var {objectId} = this.userInfo;
@@ -83,7 +92,7 @@
                         console.log(resErr);
                         this.$store.dispatch('user/SET_INITIAL_STATUS');
                         this.$router.push('/welcom');
-                    });                    
+                    });
                 }else{
                     this.getSubscribeInfo();
                 }
@@ -91,14 +100,30 @@
             getSubscribeInfo(){
                  this.$store.dispatch('user/GET_SUBSCRIBE')
                  .then(resData => {
-                     this.$router.push('/timeline');
+                     if(this.$route.path == '/') {
+                         this.$router.push('/timeline');
+                     }
                  },resError => {
                      this.$router.push('/welcom');
                  });
+            },
+            loadMore() {
+                this.search();
+            },
+            refresh(category) {
+                this.page = 0;
+                this.noMore = false;
+                this.dataList = [];
+                this.search();
+            },
+            click(dataObj) {
+                // console.log(dataObj.url)
+                window.open(dataObj.url,'_blank');
             }
         },
         beforeRouteEnter (to, from, next) {
             next(vm => {
+                console.log('index beforerouteenter')
                 if(vm.isLogin){
                    vm.$router.push('/timeline')
                 }

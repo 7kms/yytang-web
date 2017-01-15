@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="content">
-            <List :loading="loading" :dataList="dataList"></List>
+            <List :loading="loading" :dataList="dataList" v-scroll="loadMore" scroll-distance="100" scroll-disabled="isDisabled"></List>
         </div>
     </div>
 </template>
@@ -123,6 +123,9 @@
                .then(() => {
                    this.loading = false;
                });
+            },
+            loadMore() {
+                this.search();
             },
             refresh(){
                 this.dataList = [];
