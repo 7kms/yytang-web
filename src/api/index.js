@@ -23,7 +23,6 @@ get: (url, dataObj, opt = {}) => {
             var options = Object.assign({}, baseConfig, opt)
             options.params = dataObj;
             Vue.http.get(absoluteUrl, options).then(res => {
-                console.log(res)
                 if (res.body.code == 200) {
                     resolve(res.body.data)
                 } else {
@@ -39,7 +38,6 @@ get: (url, dataObj, opt = {}) => {
             var absoluteUrl = config.serverUrl + url;
             var options = Object.assign({}, baseConfig, opt)
             Vue.http.post(absoluteUrl, dataObj, options).then(res => {
-                console.log(res)
                 resolve(res.body)
             }, res => {
                 reject(res.body)

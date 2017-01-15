@@ -10,35 +10,64 @@
          align-items: center;
          height: 46px;
          padding: 0 20px;
-         color: #777;
-         background-color: #fff;
+         border-bottom: 1px solid @line-color-3;
+         color: #fff;
+         background-color: @theme-color;
+         .on{
+             font-weight: bold;
+             color: @hint-color;
+         }
+     }
+     .split{
+        display: inline-block;
+        width: 1px;
+        height: 12px;
+        margin: 0 5px;
+        vertical-align: middle;
+        background-color: #eee;
+     }
+     .tabRight{
+         span{
+             margin-left: 10px;
+         }
      }
 </style>
 <template>
-    <div :class="$style.content">
+    <div :class="$style.wrap">
         <div :class="$style.header">
             <div :class="$style.tabLeft">
-                <span>热门</span>
-                <span>最新</span>
-                <span>评论</span>
+                <span :class="['hover',{[$style.on]:true}]">热门</span>
+                <span :class="$style.split"></span>
+                <span class="hover">最新</span>
+                <span :class="$style.split"></span>
+                <span class="hover">评论</span>
             </div>
             <div :class="$style.tabRight">
-                <span>本周最热</span>
-                <span>本月最热</span>
-                <span>历史最热</span>
+                <span class="hover">本周最热</span>
+                <span class="hover">本月最热</span>
+                <span class="hover">历史最热</span>
             </div>
+        </div>
+        <div class="content">
+            <List :loading="loading" :dataList="dataList"></List>
         </div>
     </div>
 </template>
 <script>
     import $api from 'api';
     import { mapGetters } from 'vuex';
+    import List from './list.vue'
     export default {
         data(){
             return {
                 limit: 20,
-                skip: 0
+                skip: 0,
+                loading: true,
+                dataList: []
             }
+        },
+        components:{
+            List
         },
         computed: {
             ...mapGetters({
@@ -81,24 +110,33 @@
                 });
             },
             search(){
+               this.loading = true;
                this.composeParams()
                .then(paramObj => {
                    return  $api.get('/public/column',paramObj)
-               }).then(resData => {
-                   console.log(resData)
+               })
+               .then(resData => {
+                   this.dataList = [...this.dataList,...resData.results];
                },resError => {
                    console.log(resError)
+               })
+               .then(() => {
+                   this.loading = false;
                });
+            },
+            refresh(){
+                this.dataList = [];
+                this.search();
             }
         },
         watch: {
             $route (to, from){
-                console.log('route has changed')
-                this.search();
+                console.log('route change');
+                this.refresh();
             }
         },
         created(){
-            console.log('column----created')
+             console.log('column created');
             this.search();
         }
     }
