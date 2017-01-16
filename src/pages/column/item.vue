@@ -91,21 +91,21 @@
         </div>
         <div :class="[$style.addition,'text-right']">
             <div>
-                {{ dataObj.updatedAt | dateDistance }}
+                {{ dataObj.createdAt | dateDistance }}
             </div>
             <div :class="$style.author">
                 <div :class="$style.tagContent">
                     <span :class="$style.tag" v-for="(tag,index) in dataObj.tagsTitleArray.slice(0,3)" :key="index">{{ tag }}</span>
                 </div>
                 <div>
-                    <img :class="$style.img" :src="dataObj.user.avatar_hd" alt="" width="25" height="25">
+                    <img :class="$style.img" :src="dataObj.user.avatar_hd+'?imageView2/1/w/50/h/50/q/85/format/jpg/interlace/1'" alt="" width="25" height="25">
                 </div>
             </div>
         </div>
     </li>
 </template>
 <script>
-    import { articlePictureUrl } from '../../config'
+    import { articlePictureUrl } from '../../config';
     export default {
         props: {
             dataObj: Object

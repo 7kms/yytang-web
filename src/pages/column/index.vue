@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="content">
-            <List :loading="loading" :dataList="dataList" v-scroll="loadMore" scroll-distance="100" scroll-disabled="isDisabled"></List>
+            <List :loading="loading" :dataList="dataList" v-scroll="loadMore" @click="click" scroll-distance="100" scroll-disabled="isDisabled"></List>
         </div>
     </div>
 </template>
@@ -62,7 +62,9 @@
             return {
                 limit: 20,
                 skip: 0,
+                order: '-rankIndex',
                 loading: true,
+                noMore: false,
                 dataList: []
             }
         },
@@ -72,7 +74,10 @@
         computed: {
             ...mapGetters({
                 subscribeInfo:'user/GET_SUBSCRIBE'
-            })
+            }),
+            isDisabled(){
+                return this.loading || this.noMore;
+            }
         },
         methods: {
             getSubscribeArr(){
@@ -92,7 +97,7 @@
                                 include: 'user',
                                 limit: this.limit,
                                 skip: this.skip,
-                                order: '-rankIndex'
+                                order: this.order
                             };
                         var where = {};
                         if(column == 'timeline'){
@@ -113,10 +118,20 @@
                this.loading = true;
                this.composeParams()
                .then(paramObj => {
-                   return  $api.get('/public/column',paramObj)
+                   return  $api.get('/public/column',paramObj, {
+                            before: (request) => {
+                                    if (this.previousRequest) {
+                                        this.previousRequest.abort();
+                                    }
+                                    this.previousRequest = request;
+                                }
+                    });
                })
                .then(resData => {
                    this.dataList = [...this.dataList,...resData.results];
+                   if(resData.results.length < this.limit){
+                        this.noMore = true;
+                    }
                },resError => {
                    console.log(resError)
                })
@@ -125,11 +140,16 @@
                });
             },
             loadMore() {
+                this.skip += this.limit;
                 this.search();
             },
             refresh(){
                 this.dataList = [];
+                this.skip = 0;
                 this.search();
+            },
+            click(dataObj) {
+                window.open(dataObj.url,'_blank');
             }
         },
         watch: {
@@ -139,7 +159,7 @@
             }
         },
         created(){
-             console.log('column created');
+            console.log('column created');
             this.search();
         }
     }
