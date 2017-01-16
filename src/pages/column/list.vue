@@ -21,7 +21,7 @@
     <div :class="$style.entryBox">
         <div :class="$style.list">
             <ul>
-                <item v-for="data in dataList" :key="data.hotIndex" :dataObj="data" @click="click"></item>
+                <item v-for="data in dataList" :key="data.hotIndex" :dataObj="data" @click="click" @card="card"></item>
             </ul>
             <div v-if="loading">数据正在拉取...</div>
             <div v-if="!loading && dataList.length == 0">暂时木有更多数据...</div>
@@ -30,6 +30,7 @@
 </template>
 <script>
     import item from './item.vue';
+    import card from '../../components/card'
     export default {
         props:{
             dataList: Array,
@@ -44,6 +45,14 @@
         methods:{
            click(dataObj){
                this.$emit('click',dataObj);
+           },
+           card(user, position){
+               if(user){
+                   card.show(user, position);
+               }else {
+                   card.hide();
+               }
+               
            }
         },
         computed:{

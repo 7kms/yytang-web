@@ -97,7 +97,7 @@
                 <div :class="$style.tagContent">
                     <span :class="$style.tag" v-for="(tag,index) in dataObj.tagsTitleArray.slice(0,3)" :key="index">{{ tag }}</span>
                 </div>
-                <div>
+                <div @mouseenter="card($event)" @mouseleave="card()">
                     <img :class="$style.img" :src="dataObj.user.avatar_hd+'?imageView2/1/w/50/h/50/q/85/format/jpg/interlace/1'" alt="" width="25" height="25">
                 </div>
             </div>
@@ -110,7 +110,14 @@
         props: {
             dataObj: Object
         },
-        methods:{
+        methods: {
+            card(event){
+                if(event){
+                    this.$emit('card', this.dataObj.user , {referTop: event.target.offsetTop, referLeft: event.target.offsetLeft});
+                }else {
+                    this.$emit('card');
+                }
+            },
             click(){
                  this.$emit('click',this.dataObj);
             },
