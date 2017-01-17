@@ -113,7 +113,7 @@
         methods: {
             card(event){
                 if(event){
-                    this.$emit('card', this.dataObj.user , {referTop: event.target.offsetTop, referLeft: event.target.offsetLeft});
+                    this.$emit('card', this.dataObj.user , {top: event.target.offsetTop, left: event.target.offsetLeft, clientY: event.clientY});
                 }else {
                     this.$emit('card');
                 }

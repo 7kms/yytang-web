@@ -1,47 +1,30 @@
-import Vue from 'vue';
-import Card from './card.vue';
+import Card from './card';
+let cardInstance;
 
-function generateDom () {
-    let div = document.createElement('div');
-    div.innerHTML = `
-        <Card :show="visible" :position="position" :dataObj="user"></Card>
-    `;
-    div = document.body.appendChild(div);
-    return div;
+function getInstance () {
+    if (!cardInstance) {
+        const options = {
+            onRemove: function () {
+                cardInstance = null;
+            }
+        };
+        cardInstance = Card.newInstance(options);
+    }
+    return cardInstance;
 }
 
-const card = new Vue({
-    el: generateDom(),
-    data: {
-        visible: false,
-        user: {},
-        position: {}
-    },
-    components: { Card },
-    methods: {
-        show (user = {}, position = {}) {
-            this.visible = true;
-            this.position = Object.assign(position);
-            this.user = Object.assign(user);
-        },
-        hide () {
-            this.visible = false;
-        },
-        remove () {
-            this.$destroy();
-            document.body.removeChild(this.$el);
-        }
-    }
-}).$children[0];
-
-module.exports = {
+export default {
     show (user, position) {
-        card.$parent.show(user, position)
+        getInstance().show(user, position);
     },
     hide () {
-        card.$parent.hide()
+        if (cardInstance) {
+            cardInstance.hide();
+        }
     },
     remove () {
-       card.$parent.remove();
+        if (cardInstance) {
+            cardInstance.remove();
+        }
     }
-}
+};

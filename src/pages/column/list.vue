@@ -30,7 +30,7 @@
 </template>
 <script>
     import item from './item.vue';
-    import card from '../../components/card'
+    import tqCard from '../../components/card'
     export default {
         props:{
             dataList: Array,
@@ -48,11 +48,10 @@
            },
            card(user, position){
                if(user){
-                   card.show(user, position);
+                   tqCard.show(user, position);
                }else {
-                   card.hide();
+                   tqCard.hide();
                }
-               
            }
         },
         computed:{
