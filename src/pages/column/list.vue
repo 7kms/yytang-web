@@ -54,8 +54,8 @@
                }
            }
         },
-        computed:{
-
+        beforeDestroy(){
+             tqCard.remove();
         }
     }
 </script>

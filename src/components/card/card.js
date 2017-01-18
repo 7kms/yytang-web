@@ -4,7 +4,7 @@ import Card from './card.vue';
 function generateDom () {
     let div = document.createElement('div');
     div.innerHTML = `
-        <Card :show="visible" :position="position" :dataObj="user"></Card>
+        <Card :show="visible" :position="position" :user="user"></Card>
     `;
     div = document.body.appendChild(div);
     return div;
@@ -21,14 +21,12 @@ Card.newInstance = properties => {
         components: { Card },
         methods: {
             show (user = {}, position = {}) {
-                // Object.keys(user).forEach((val, index) => {
-                //     this.$set(this.user, val, user[user]);
-                // })
-                this.position = position;
                 this.user = user;
+                this.position = position;
                 this.visible = true;
             },
             hide () {
+                this.user = {};
                 this.visible = false;
             },
             remove () {
