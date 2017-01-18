@@ -44,6 +44,15 @@
                  color: @highlight;
              }
          }
+         &.add{
+            justify-content: center;
+            &:hover{
+                color: @hint-color;
+            }
+        }
+     }
+     .icon{
+         margin-right: 10px;
      }
      .title,.count{
          margin: 0;
@@ -57,6 +66,7 @@
          align-self: flex-end;
          font-size: 1.2rem;
      }
+     
 </style>
 
 <template>
@@ -64,49 +74,15 @@
         <div :class="$style.header">弹枪云笔记</div>
         <ul :class="$style.list">
             <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
+                <h3 :class="[$style.title,'one-line']">
+                    <y-icon name="folder" :class="$style.icon"></y-icon>
+                    <span>前端小咸鱼</span>
+                </h3>
                 <p :class="$style.count">9</p>
                 <time :class="$style.time">2017-01-18</time>
             </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
-            </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
-            </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
-            </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
-            </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
-            </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
-            </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
-            </li>
-            <li :class="[$style.note,'text-center']">
-                <h3 :class="[$style.title,'one-line']">前端小咸鱼</h3>
-                <p :class="$style.count">9</p>
-                <time :class="$style.time">2017-01-18</time>
+            <li :class="[$style.note,$style.add,'text-center']">
+                <span><y-icon name="note" :class="$style.icon"></y-icon>新建笔记本</span>
             </li>
         </ul>
     </div>

@@ -28,10 +28,12 @@
         margin-top: 17px;
         margin-right: 30px;
     }
+    .wrap{
+        padding-top: 75px;
+    }
     .content{
         min-width: 600px;
         margin-left: 150px;
-        margin-top: 75px;
     }
 </style>
 <template>
@@ -48,7 +50,7 @@
                 <User :class="[$style.user,'pull-right']" :userInfo="userInfo"></User>
             </div>
         </header>
-        <div class="wrap">
+        <div :class="$style.wrap">
             <yAside :isLogin="isLogin" :navList="navList" :isInitialize="isInitialize"></yAside>
             <div :class="$style.content">
                 <router-view></router-view>
