@@ -31,6 +31,7 @@ Card.newInstance = properties => {
             },
             remove () {
                 this.$destroy();
+                properties.onRemove && properties.onRemove();
                 document.body.removeChild(this.$el);
             }
         }
