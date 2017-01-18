@@ -1,5 +1,8 @@
 <style lang="less" module>
      @import '../../assets/less/const.less';
+     .wrap{
+         width: 75%;
+     }
      .content{
         height: 100px;
         background-color: #00beff 

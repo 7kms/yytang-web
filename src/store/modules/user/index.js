@@ -7,7 +7,7 @@ function generateNav (subscribeArr) {
         { title: '首页', path: '/timeline' },
         { title: '专栏', path: '/special' },
         { title: '收藏集', path: '/collection' },
-        { title: '发现', path: '/discover' }
+        { title: '简书', path: '/notes' }
     ];
     const categoryArr = [
             {
@@ -73,6 +73,11 @@ function generateNav (subscribeArr) {
             obj.list.push({
                 label: '编辑推荐',
                 path: `${nav.path}/recommend`
+            });
+        } else if (nav.title == '简书') {
+            obj.list.push({
+                label: '我的笔记',
+                path: `${nav.path}`
             });
         }
         navList.push(obj);

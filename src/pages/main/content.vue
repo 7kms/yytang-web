@@ -1,5 +1,10 @@
+<style lang="less" module>
+    .wrap{
+        width: 75%;
+    }
+</style>
 <template>
-    <div>
+    <div :class="$style.wrap">
          <List :dataList="dataList" :loading="loading" :category="tabName" @click="click" v-scroll="loadMore" scroll-distance="100" scroll-disabled="isDisabled"></List>
     </div>
 </template>

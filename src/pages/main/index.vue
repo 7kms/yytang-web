@@ -29,7 +29,6 @@
         margin-right: 30px;
     }
     .content{
-        width: 65%;
         min-width: 600px;
         margin-left: 150px;
         margin-top: 75px;
@@ -51,7 +50,7 @@
         </header>
         <div class="wrap">
             <yAside :isLogin="isLogin" :navList="navList" :isInitialize="isInitialize"></yAside>
-            <div :class="[$style.content,'pull-left']">
+            <div :class="$style.content">
                 <router-view></router-view>
             </div>
         </div>

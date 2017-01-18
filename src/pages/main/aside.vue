@@ -104,7 +104,8 @@
             },
             userNavActive({path}){
                 const { column } = this.$route.params;
-                return path.indexOf(column) > -1;
+                const { fullPath } = this.$route;
+                return path.indexOf(column) > -1 || fullPath.indexOf(path) > -1;
             },
             userNavHighlight(item){
                 const { path } = this.$route;
