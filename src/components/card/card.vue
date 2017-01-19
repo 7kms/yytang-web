@@ -90,13 +90,13 @@
         },
         computed: {
             positionStyle(){
-                let { top, left, clientY} = this.position;
+                let { top, left , clientTop} = this.position;
                 const space = 20;
-                if(clientY <= 200){
+                if(top <= 200){
                     left =left - this.width - space;
-                    top = top - .5 * this.height + 12;
+                    top = clientTop - .5 * this.height + 12;
                 }else {
-                    top = top - this.height - space;
+                    top = clientTop - this.height - space;
                     left = left - .5 * this.width + 12
                 }
                 return {

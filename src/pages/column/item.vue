@@ -113,7 +113,9 @@
         methods: {
             card(event){
                 if(event){
-                    this.$emit('card', this.dataObj.user , {top: event.target.offsetTop, left: event.target.offsetLeft, clientY: event.clientY});
+                    let {top, left} = event.target.getBoundingClientRect();
+                    let clientTop = window.pageYOffset + top;
+                    this.$emit('card', this.dataObj.user , {top, left , clientTop});
                 }else {
                     this.$emit('card');
                 }
