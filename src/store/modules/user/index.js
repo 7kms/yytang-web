@@ -77,7 +77,8 @@ function generateNav (subscribeArr) {
         } else if (nav.title == '简书') {
             obj.list.push({
                 label: '我的笔记',
-                path: `${nav.path}`
+                path: `${nav.path}`,
+                highlightPath: `${nav.path}`
             });
         }
         navList.push(obj);

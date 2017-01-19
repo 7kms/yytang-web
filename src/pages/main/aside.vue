@@ -109,7 +109,7 @@
             },
             userNavHighlight(item){
                 const { path } = this.$route;
-                return path == item.path;
+                return path == item.path || path.indexOf(item.highlightPath) > -1;
             },
             switchNav(nav) {
                 this.changeRoute(nav.list[0]);

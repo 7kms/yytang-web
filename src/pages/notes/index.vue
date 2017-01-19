@@ -73,7 +73,7 @@
     <div :class="$style.content">
         <div :class="$style.header">弹枪云笔记</div>
         <ul :class="$style.list">
-            <li :class="[$style.note,'text-center']">
+            <li :class="[$style.note,'text-center']" @click="goView">
                 <h3 :class="[$style.title,'one-line']">
                     <y-icon name="folder" :class="$style.icon"></y-icon>
                     <span>前端小咸鱼</span>
@@ -81,9 +81,21 @@
                 <p :class="$style.count">9</p>
                 <time :class="$style.time">2017-01-18</time>
             </li>
-            <li :class="[$style.note,$style.add,'text-center']">
+            <li :class="[$style.note,$style.add,'text-center']" @click="create">
                 <span><y-icon name="note" :class="$style.icon"></y-icon>新建笔记本</span>
             </li>
         </ul>
     </div>
 </template>
+<script>
+    export default {
+        methods:{
+            goView(){
+                this.$router.push({path:'/notes/manage',query:{noteID:1212}})
+            },
+            create(){
+                console.log('create........')
+            }
+        }
+    }
+</script>

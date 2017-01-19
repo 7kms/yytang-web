@@ -30,18 +30,18 @@ const ROUTER_SETTING = {
                 },
                 {
                     path: 'notes',
-                    component: resolve => require(['./pages/notes/index.vue'], resolve),
+                    component: resolve => require(['./pages/notes/main.vue'], resolve),
                     meta: {
                          title: '笔记'
                     },
                     children: [
                         {
-                            path: 'write',
-                            component: resolve => require(['./pages/notes/write.vue'], resolve)
+                            path: '',
+                            component: resolve => require(['./pages/notes/index.vue'], resolve)
                         },
                         {
-                            path: 'edit',
-                            component: resolve => require(['./pages/notes/edit.vue'], resolve)
+                            path: 'manage',
+                            component: resolve => require(['./pages/notes/manage.vue'], resolve)
                         }
                     ]
                 }
