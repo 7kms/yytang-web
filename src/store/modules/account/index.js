@@ -30,15 +30,15 @@ const actions = {
             })
         })
     },
-    registure ({ commit, state, dispatch }, accountInfo) {
+    [types.REGISTER] ({ commit, state, dispatch }, accountInfo) {
         commit(types.LOGIN, { isLoading: true });
         return new Promise((resolve, reject) => {
-             $api.post('/registure', accountInfo)
+             $api.post('/user/register', accountInfo)
             .then(data => {
-                commit(types.REGISTURE_SUCCESS, data)
+                commit(types.REGISTER_SUCCESS, data)
                 resolve(data);
             }, data => {
-                commit(types.REGISTURE_FAILE, data);
+                commit(types.REGISTER_FAILE, data);
                 reject(data);
             })
         })
@@ -54,13 +54,13 @@ const mutations = {
     [types.LOGIN_FAILE] (state, accountInfo) {
         state.loginInfo.loading = false;
     },
-    [types.REGISTURE] (state, { isLoading }) {
+    [types.REGISTER] (state, { isLoading }) {
         state.regInfo.loading = isLoading
     },
-    [types.REGISTURE_SUCCESS] (state, { user }) {   
+    [types.REGISTER_SUCCESS] (state, { user }) {   
         state.regInfo.loading = false;
     },
-    [types.REGISTURE_FAILE] (state, accountInfo) {
+    [types.REGISTER_FAILE] (state, accountInfo) {
         state.regInfo.loading = false;
     }
 }
