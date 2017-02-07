@@ -22,7 +22,7 @@ const actions = {
     },
     [types.LOGIN_OUT] ({ commit, state, dispatch }) {
         return new Promise((resolve, reject) => {
-             $api.post('/user/loginout')
+             $api.post('/user/loginout') 
             .then(data => {
                 resolve(data);
             }, data => {
