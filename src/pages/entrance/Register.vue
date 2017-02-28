@@ -131,9 +131,11 @@
             },
             registure(){
                 if(!this.validate())return false;
-                this.$store.dispatch('registure',this.user)
+                const {email,password} = this.user;
+                this.$store.dispatch('account/REGISTER',{ email,password })
                 .then(res=>{
-                    this.$router.replace(this.$route.query.redirect || '/')
+                    console.log(res);
+                    // this.$router.replace(this.$route.query.redirect || '/')
                 },res=>{
                     console.log(res);
                     this.$Toast.show({text: res.msg , duration: 3000});

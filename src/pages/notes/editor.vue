@@ -9,7 +9,9 @@
         }
         .tools{
             height: 40px;
+            text-align: right;
             line-height: 40px;
+            font-size: 1.4rem;
             background-color: @bg-color-2;
         }
     }
@@ -24,9 +26,15 @@
      }
      .edit{
          flex: 1;
+         display: flex;
+         flex-direction: column;
          textarea{
+             flex: 1;
              width: 100%;
-             height: 100%;
+             margin-top: 10px;
+             padding: 10px;
+             font-size: 1.4rem;
+             color: @font-color-7;
              outline: none;
              resize: none;
              border: 1px solid @line-color-2
@@ -34,18 +42,28 @@
      }
      .view{
          width: 40%;
+         padding: 10px;
+     }
+     .toolLabel{
+         margin-left: 100px;
+         font-size: 1.6rem;
      }
 </style>
 <template>
    <div :class="$style.editor">
-        <div :class="$style.tools">工具</div>
+        <div :class="$style.tools">
+            <span :class="[$style.toolLabel]" @click="preview">
+                <y-icon name="preview" class="hover"  v-toolTip.right.center="'预览'"></y-icon>
+            </span>
+            <span :class="[$style.toolLabel]" @click="save">
+                <y-icon name="save" class="hover" v-toolTip.left.center="'保存'"></y-icon>
+            </span>
+        </div>
         <div :class="$style.article">
             <div :class="$style.edit">
                 <textarea v-model="markdownText"></textarea>
             </div>
-            <div :class="$style.view" v-html="html">
-
-            </div>
+            <div :class="$style.view" v-html="html"></div>
         </div>
     </div>
 </template>
@@ -72,7 +90,14 @@
                 markdownText: ''
             }
         },
-       
+        methods: {
+            preview(){
+                console.log('preview')
+            },
+            save(){
+                console.log('save')
+            }
+        },
         computed: {
             html(){
                 return marked(this.markdownText);

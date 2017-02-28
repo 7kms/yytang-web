@@ -5,6 +5,7 @@
         left: 0;
         top: 0;
         right: 0;
+        z-index: 100;
         height: 64px;
         min-width: 760px;
         color: #fff;
